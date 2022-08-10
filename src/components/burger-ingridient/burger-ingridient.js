@@ -1,14 +1,17 @@
 import React from 'react';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
-class BurgerIngridient extends React.Component {
-    render() {
-        return (
-            <>
-                <img src={this.props.image} alt={this.props.name}/>
-                <CurrencyIcon/> {this.props.price} {this.props.name}
-            </>
-        );
-    }
+export default function BurgerIngridient(props) {
+    return (
+        <>
+            <img src={props.image} alt={props.name}/>
+            <CurrencyIcon/> {props.price} {props.name}
+        </>
+    );
 }
-export default BurgerIngridient;
+BurgerIngridient.propTypes = {
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired
+};

@@ -1,38 +1,49 @@
 import React from 'react';
-import {ConstructorElement, Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import {DragIcon, ConstructorElement, Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from "./burger-constructor.module.css";
+import {currentIngridientsArray} from '../utils/data';
 
-class BurgerConstructor extends React.Component {
-    render() {
-        return (
-            <section style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
-                <ConstructorElement
-                    type="top"
-                    isLocked={true}
-                    text="Краторная булка N-200i (верх)"
-                    price={200}
-                    thumbnail={'https://code.s3.yandex.net/react/code/meat-01.png'}
+export default function BurgerConstructor() {
+    return (
+        <ul className={styles.constructor}>
+            {currentIngridientsArray.filter(el => el.type === 'bun').map((element, index) => (
+                <li key={element._id}>
+                    <ConstructorElement
+                        type="top"
+                        isLocked={true}
+                        text={element.name}
+                        price={element.price}
+                        thumbnail={element.image}
+                    />
+                </li>
+            ))}
+            {currentIngridientsArray.filter(el => el.type === 'main').map((element, index) => (
+                <li key={element._id} className={"p-5"}>
+                    <DragIcon/><ConstructorElement
+                    isLocked={false}
+                    text={element.name}
+                    price={element.price}
+                    thumbnail={element.image}
                 />
-                <ConstructorElement
-                    text="Краторная булка N-200i (верх)"
-                    price={50}
-                    thumbnail={'https://code.s3.yandex.net/react/code/meat-01.png'}
-                />
-                <ConstructorElement
-                    type="bottom"
-                    isLocked={true}
-                    text="Краторная булка N-200i (низ)"
-                    price={200}
-                    thumbnail={'https://code.s3.yandex.net/react/code/meat-01.png'}
-                />
-                <div>
-                    100 <CurrencyIcon/>
-                    <Button>
-                        Оформить заказ
-                    </Button>
-                </div>
-            </section>
-        );
-    }
+                </li>
+            ))}
+            {currentIngridientsArray.filter(el => el.type === 'bun').map((element, index) => (
+                <li key={element._id}>
+                    <ConstructorElement
+                        type="bottom"
+                        isLocked={true}
+                        text={element.name}
+                        price={element.price}
+                        thumbnail={element.image}
+                    />
+                </li>
+            ))}
+            <li>
+                100 <CurrencyIcon/>
+                <Button>
+                    Оформить заказ
+                </Button>
+            </li>
+        </ul>
+    );
 }
-
-export default BurgerConstructor;
