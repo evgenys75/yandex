@@ -1,0 +1,12 @@
+.constructor {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    max-height: 30%;
+}
+
+.constructor li {
+
+}
