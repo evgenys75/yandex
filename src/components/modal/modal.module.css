@@ -1,0 +1,34 @@
+.modal {
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 100vh;
+    width: 100vw;
+    transform: scale(0);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal.aсtive {
+    transform: scale(1);
+}
+.modalContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 720px;
+    min-height: 538px;
+    border-radius: 40px;
+    background-color: var(--background);
+}
+.close {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    line-height: 0;
+    position: relative;
+    right: 5%;
+    top: -30%;
+}

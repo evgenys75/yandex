@@ -1,6 +1,3 @@
-.ingredientsSection{
-    width: 50%;
-}
 .ingredientsList {
     overflow-y: auto;
     scrollbar-gutter: stable;
@@ -9,14 +6,35 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 100%;
-}
-.ingredientsList li{
 
 }
+
 .tabs {
     display: flex;
 }
+
 .sectionTitle {
     width: 100%;
+}
+
+.ingredient {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 50%;
+    align-items: center;
+    text-align: center;
+}
+.ingredientInfo {
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+}
+.infoTitle{
+    align-self: flex-start;
+}
+.ingredientInfo li{
+    text-align: center;
 }
