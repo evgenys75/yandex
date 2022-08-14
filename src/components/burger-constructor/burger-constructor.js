@@ -1,13 +1,15 @@
 import React from 'react';
 import {DragIcon, ConstructorElement, Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "./burger-constructor.module.css";
-import {currentIngridientsArray} from '../utils/data';
-import Modal from '../modal/modal';
+import {currentIngridientsArray} from '../../utils/data';
 import {useState} from "react";
-import doneImg from '../../images/done.png';
+import OrderDetails from "../order-details/order-details"
 
 export default function BurgerConstructor() {
     const [isOpen, setIsOpen] = useState(false);
+    const handleCloseModal = () => {
+        setIsOpen(false);
+    }
     return (
         <>
             <ul className={`pt-25 pl-10 ${styles.constructor}`}>
@@ -53,13 +55,9 @@ export default function BurgerConstructor() {
                     </Button>
                 </li>
             </ul>
-            <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-                <span className={"pt-30 pb-8 text text_type_digits-large"}>034536</span>
-                <span className={"text text_type_main-medium"}>идентификатор заказа</span>
-                <span className={"pt-15 pb-15"}><img alt={"Done"} src={doneImg}/></span>
-                <span className={"pb-2 text text_type_main-default"}>Ваш заказ начали готовить</span>
-                <span className={"pb-30 text text_type_main-default text_color_inactive"}>Дождитесь готовности на орбитальной станции</span>
-            </Modal>
+            {isOpen &&
+                <OrderDetails onClose={handleCloseModal} />
+            }
         </>
     );
 }

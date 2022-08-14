@@ -1,0 +1,15 @@
+.infoTitle {
+    align-self: flex-start;
+}
+
+.ingredientInfo {
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.ingredientInfo li {
+    text-align: center;
+}

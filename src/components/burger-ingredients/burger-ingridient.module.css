@@ -25,16 +25,3 @@
     align-items: center;
     text-align: center;
 }
-.ingredientInfo {
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-}
-.infoTitle{
-    align-self: flex-start;
-}
-.ingredientInfo li{
-    text-align: center;
-}
