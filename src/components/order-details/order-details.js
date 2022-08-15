@@ -15,5 +15,5 @@ export default function OrderDetails(prop) {
     );
 }
 OrderDetails.propTypes = {
-    handleCloseModal: PropTypes.func
+    onClose: PropTypes.func.isRequired
 }

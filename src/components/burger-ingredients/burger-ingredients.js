@@ -41,7 +41,6 @@ export default function BurgerIngredients(props) {
                     Начинка
                 </Tab>
             </div>
-
             <ul className={styles.ingredientsList}>
                 <li ref={refBun} className={`${styles.sectionTitle} p-10 text text_type_main-medium`}>Булки</li>
                 {props.ingredients.filter(el => el.type === 'bun').map((element, index) => (
@@ -76,5 +75,5 @@ export default function BurgerIngredients(props) {
     );
 }
 BurgerIngredients.propTypes = {
-    ingredients: PropTypes.array
+    ingredients: PropTypes.array.isRequired
 };

@@ -24,5 +24,5 @@ export default function IngredientDetails(prop) {
     );
 }
 IngredientDetails.propTypes = {
-    handleCloseModal: PropTypes.func
+    onClose: PropTypes.func.isRequired
 }
