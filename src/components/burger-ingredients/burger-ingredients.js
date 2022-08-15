@@ -15,13 +15,13 @@ export default function BurgerIngredients(props) {
         setIsOpen(false);
     }
     const scrollToIngredientSectionBun = () => {
-        refBun.current.scrollIntoView();
+        refBun.current.scrollIntoView({behavior: "smooth"});
     };
     const scrollToIngredientSectionSauce = () => {
-        refSauce.current.scrollIntoView();
+        refSauce.current.scrollIntoView({behavior: "smooth"});
     };
     const scrollToIngredientSectionMain = () => {
-        refMain.current.scrollIntoView();
+        refMain.current.scrollIntoView({behavior: "smooth"});
     };
     const refBun = React.useRef();
     const refSauce = React.useRef();
@@ -54,7 +54,7 @@ export default function BurgerIngredients(props) {
                 {props.ingredients.filter(el => el.type === 'sauce').map((element, index) => (
                     <li key={element._id} className={`pt-6 pb-10 ${styles.ingredient}`}
                         onClick={() => setIsOpen({isOpen: true, info: element})}>
-                        <BurgerIngridient key={index} image={element.image} name={element.name}
+                        <BurgerIngridient image={element.image} name={element.name}
                                           price={element.price}/>
                     </li>
                 ))}
@@ -63,7 +63,7 @@ export default function BurgerIngredients(props) {
                 {props.ingredients.filter(el => el.type === 'main').map((element, index) => (
                     <li key={element._id} className={`pt-6 pb-10 ${styles.ingredient}`}
                         onClick={() => setIsOpen({isOpen: true, info: element})}>
-                        <BurgerIngridient key={index} image={element.image} name={element.name}
+                        <BurgerIngridient image={element.image} name={element.name}
                                           price={element.price}/>
                     </li>
                 ))}
