@@ -1,22 +1,27 @@
-.ingredientsSection{
-    width: 50%;
-}
 .ingredientsList {
     overflow-y: auto;
     scrollbar-gutter: stable;
-    max-height: 30%;
+    height: 80vh;
     list-style: none;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 100%;
-}
-.ingredientsList li{
 
 }
+
 .tabs {
     display: flex;
 }
+
 .sectionTitle {
     width: 100%;
+}
+
+.ingredient {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 50%;
+    align-items: center;
+    text-align: center;
 }

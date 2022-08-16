@@ -1,0 +1,30 @@
+.modal {
+    height: 100vh;
+    width: 40vw;
+    position: fixed;
+    top: 0;
+    left: calc(50% - 20vw);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+.modalContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40vw;
+    min-height: 538px;
+    border-radius: 40px;
+    background-color: var(--background);
+}
+.close {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    line-height: 0;
+    position: relative;
+    right: 10%;
+    top: -30%;
+}
