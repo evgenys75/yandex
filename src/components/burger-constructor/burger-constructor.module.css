@@ -4,14 +4,15 @@
     list-style: none;
     overflow-y: auto;
     scrollbar-gutter: stable;
-    max-height: 30%;
 }
+
 .ingredient {
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: grab;
 }
-.total{
+
+.total {
     text-align: right;
 }

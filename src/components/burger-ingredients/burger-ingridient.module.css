@@ -1,8 +1,7 @@
 .ingredientsList {
     overflow-y: auto;
     scrollbar-gutter: stable;
-    height: 1500px;
-    max-height: 80%;
+    height: 80vh;
     list-style: none;
     display: flex;
     flex-direction: row;
