@@ -1,12 +1,14 @@
-import React from 'react';
+import {React,useContext} from 'react';
 import PropTypes from 'prop-types';
 import doneImg from '../../images/done.png';
 import Modal from '../modal/modal';
+import {OrderContext} from '../../services/burger-context';
 
 export default function OrderDetails(prop) {
+    const orderId = useContext(OrderContext);
     return (
         <Modal onClose={prop.onClose}>
-            <span className={"pt-30 pb-8 text text_type_digits-large"}>034536</span>
+            <span className={"pt-30 pb-8 text text_type_digits-large"}>{orderId}</span>
             <span className={"text text_type_main-medium"}>идентификатор заказа</span>
             <span className={"pt-15 pb-15"}><img alt={"Done"} src={doneImg}/></span>
             <span className={"pb-2 text text_type_main-default"}>Ваш заказ начали готовить</span>
