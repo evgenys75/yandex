@@ -5,6 +5,7 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import {useState, useEffect} from "react";
 import {apiEndPoint} from '../../utils/data';
+import {BurgerContext} from '../../services/burger-context';
 
 export default function App() {
     const [state, setState] = useState({
@@ -16,7 +17,7 @@ export default function App() {
     useEffect(() => {
         const getIngredients = async () => {
             setState({isLoading: true, hasError: false, data: []});
-            fetch(apiEndPoint).then((response) => {
+            fetch(`${apiEndPoint}ingredients`).then((response) => {
                 if (response.ok) {
                     return response.json();
                 } else {
@@ -30,6 +31,7 @@ export default function App() {
         }
         getIngredients();
     }, [])
+    const burger = { ingredientsFullList: state.data };
     return (
         <>
             <AppHeader/>
@@ -39,8 +41,10 @@ export default function App() {
                 !state.hasError &&
                 state.data.length &&
                 <main className={appStyles.main}>
-                    <BurgerIngredients ingredients={state.data}/>
-                    <BurgerConstructor/>
+                    <BurgerContext.Provider value={burger}>
+                        <BurgerIngredients/>
+                        <BurgerConstructor/>
+                    </BurgerContext.Provider>
                 </main>
             }
         </>

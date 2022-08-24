@@ -1,12 +1,13 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngridient from '../burger-ingridient/burger-ingridient'
 import styles from "./burger-ingridient.module.css";
-import PropTypes from 'prop-types';
 import IngredientDetails from '../ingredient-details/ingredient-details'
-
+import {BurgerContext} from '../../services/burger-context';
+import Modal from '../modal/modal';
 
 export default function BurgerIngredients(props) {
+    const ingredients = useContext(BurgerContext).ingredientsFullList;
     const [state, setIsOpen] = useState({
         isOpen: false,
         info: []
@@ -43,7 +44,7 @@ export default function BurgerIngredients(props) {
             </div>
             <ul className={styles.ingredientsList}>
                 <li ref={refBun} className={`${styles.sectionTitle} p-10 text text_type_main-medium`}>Булки</li>
-                {props.ingredients.filter(el => el.type === 'bun').map((element, index) => (
+                {ingredients.filter(el => el.type === 'bun').map((element, index) => (
                     <li key={element._id} className={`pt-6 pb-10 ${styles.ingredient}`}
                         onClick={() => setIsOpen({isOpen: true, info: element})}>
                         <BurgerIngridient image={element.image} name={element.name}
@@ -51,7 +52,7 @@ export default function BurgerIngredients(props) {
                     </li>
                 ))}
                 <li ref={refSauce} className={`${styles.sectionTitle} p-10 text text_type_main-medium`}>Соусы</li>
-                {props.ingredients.filter(el => el.type === 'sauce').map((element, index) => (
+                {ingredients.filter(el => el.type === 'sauce').map((element, index) => (
                     <li key={element._id} className={`pt-6 pb-10 ${styles.ingredient}`}
                         onClick={() => setIsOpen({isOpen: true, info: element})}>
                         <BurgerIngridient image={element.image} name={element.name}
@@ -60,7 +61,7 @@ export default function BurgerIngredients(props) {
                 ))}
                 <li ref={refMain} className={`${styles.sectionTitle} p-10 text text_type_main-medium`}>Ингридиенты
                 </li>
-                {props.ingredients.filter(el => el.type === 'main').map((element, index) => (
+                {ingredients.filter(el => el.type === 'main').map((element, index) => (
                     <li key={element._id} className={`pt-6 pb-10 ${styles.ingredient}`}
                         onClick={() => setIsOpen({isOpen: true, info: element})}>
                         <BurgerIngridient image={element.image} name={element.name}
@@ -69,11 +70,10 @@ export default function BurgerIngredients(props) {
                 ))}
             </ul>
             {state.isOpen &&
-                <IngredientDetails onClose={handleCloseModal} info={state.info}/>
+                <Modal onClose={handleCloseModal}>
+                    <IngredientDetails info={state.info}/>
+                </Modal>
             }
         </section>
     );
 }
-BurgerIngredients.propTypes = {
-    ingredients: PropTypes.array.isRequired
-};

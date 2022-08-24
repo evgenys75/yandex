@@ -17,12 +17,12 @@ export default function Modal({onClose, children}) {
         };
         document.addEventListener('keydown', closeOnEsc);
         return () => document.removeEventListener('keydown', closeOnEsc);
-    }, [])
+    })
 
     return ReactDOM.createPortal((
         <>
             <div className={styles.modal}>
-                <span className={styles.modalContent}>{children}</span>
+                <span className={`${styles.modalContent} p-30`}>{children}</span>
                 <button className={styles.close} onClick={onClose}>
                     <CloseIcon type='primary'/>
                 </button>
@@ -31,7 +31,6 @@ export default function Modal({onClose, children}) {
         </>
     ), modalRoot);
 }
-
 Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
     children: PropTypes.node
