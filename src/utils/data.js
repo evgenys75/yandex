@@ -1,4 +1,4 @@
-export const apiEndPoint = 'https://norma.nomoreparties.space/api/ingredients';
+export const apiEndPoint = 'https://norma.nomoreparties.space/api/';
 export const currentIngridientsArray = [
     {
         "_id": "60666c42cc7b410027a1a9b1",

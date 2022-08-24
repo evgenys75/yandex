@@ -17,7 +17,7 @@ export default function App() {
     useEffect(() => {
         const getIngredients = async () => {
             setState({isLoading: true, hasError: false, data: []});
-            fetch(apiEndPoint).then((response) => {
+            fetch(`${apiEndPoint}ingredients`).then((response) => {
                 if (response.ok) {
                     return response.json();
                 } else {
@@ -42,7 +42,7 @@ export default function App() {
                 state.data.length &&
                 <main className={appStyles.main}>
                     <BurgerContext.Provider value={burger}>
-                        <BurgerIngredients ingredients={state.data}/>
+                        <BurgerIngredients/>
                         <BurgerConstructor/>
                     </BurgerContext.Provider>
                 </main>

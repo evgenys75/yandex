@@ -1,40 +1,41 @@
 import React from 'react';
 import {DragIcon, ConstructorElement, Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "./burger-constructor.module.css";
-import {useState, useContext} from "react";
+import {useState, useContext, useMemo} from "react";
 import OrderDetails from "../order-details/order-details"
 import {BurgerContext, OrderContext} from '../../services/burger-context';
+import {apiEndPoint} from '../../utils/data';
+import Modal from '../modal/modal';
 
 export default function BurgerConstructor() {
     const [isOpen, setIsOpen] = useState(false);
     const [orderId, setOrderId] = useState(null);
     const currentIngridientsArray = useContext(BurgerContext).ingredientsFullList;
     const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
-    const bunIngredient = currentIngridientsArray.filter(el => el.type === 'bun')[random(0, currentIngridientsArray.filter(el => el.type === 'bun').length)];
-    const mainIngredient = currentIngridientsArray.filter(el => el.type === 'main').sort(() => Math.random() - 0.5);
+    const bunIngredient = useMemo(() => currentIngridientsArray.filter(el => el.type === 'bun')[random(0, currentIngridientsArray.filter(el => el.type === 'bun').length)], [currentIngridientsArray]);
+    const mainIngredient = useMemo(() => currentIngridientsArray.filter(el => el.type === 'main').sort(() => Math.random() - 0.5), [currentIngridientsArray]);
+
     const handleCloseModal = () => {
         setIsOpen(false);
     }
 
+    function checkResponse(res) {
+        return res.ok ? res.json() : Promise.reject(`res.ok: ${res.ok}, res.status: ${res.status}`);
+    }
+
     const createOrder = () => {
         const orderRequest = `{"ingredients": ["${bunIngredient._id}","${bunIngredient._id}"]}`;
-        fetch('https://norma.nomoreparties.space/api/orders', {
+        fetch(`${apiEndPoint}orders`, {
             headers: {
                 'Content-Type': 'application/json'
             },
             method: 'POST',
             body: orderRequest
-        }).then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error("Can't create order");
-            }
-        }).then((data) => {
-            console.log(data);
-            setOrderId(data.order.number);
-            setIsOpen(true);
-        }).catch((error) => {
+        }).then(checkResponse)
+            .then((data) => {
+                setOrderId(data.order.number);
+                setIsOpen(true);
+            }).catch((error) => {
             console.log(error);
         })
     }
@@ -81,7 +82,9 @@ export default function BurgerConstructor() {
             </ul>
             {isOpen &&
                 <OrderContext.Provider value={orderId}>
-                    <OrderDetails onClose={handleCloseModal}/>
+                    <Modal onClose={handleCloseModal}>
+                        <OrderDetails/>
+                    </Modal>
                 </OrderContext.Provider>
             }
         </>
