@@ -1,11 +1,11 @@
 import {
     GET_INGREDIENTS,
-    SET_INGREDIENT_DETAILS
+    SET_INGREDIENT_DETAILS,
 } from '../actions/ingredients';
 
 const initialState = {
     ingredientsFullList: [],
-    ingredientDetails: null
+    ingredientDetails: null,
 };
 
 export const ingredientsReducer = (state = initialState, action) => {

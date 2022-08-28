@@ -1,5 +1,4 @@
 .modal {
-    height: 100vh;
     position: fixed;
     top: 0;
     left: calc(50% - 20vw);
@@ -22,7 +21,7 @@
     cursor: pointer;
     padding: 8px;
     line-height: 0;
-    position: relative;
     right: 10%;
-    top: -30%;
+    top: 5em;
+    position: absolute;
 }

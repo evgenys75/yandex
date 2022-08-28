@@ -1,9 +1,9 @@
 import {
-    CREATE_ORDER
+    CREATE_ORDER,
 } from '../actions/order';
 
 const initialState = {
-    orderId: null
+    orderId: null,
 };
 
 export const orderReducer = (state = initialState, action) => {
