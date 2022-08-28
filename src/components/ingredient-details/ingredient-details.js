@@ -1,23 +1,31 @@
 import React from 'react';
 import styles from './ingredient-details.module.css';
+import {useSelector} from 'react-redux';
 
-export default function IngredientDetails(prop) {
+export default function IngredientDetails() {
+    const {ingredientDetails} = useSelector(store => store.ingredients);
     return (
         <>
-                    <span
-                        className={`pt-10 pl-10 pr-10 text_type_main-large ${styles.infoTitle}`}>Детали ингедиента</span>
-            <span className={"pt-15 pb-15"}><img alt={prop.info.name} src={prop.info.image_large}/></span>
-            <span className={"pb-4 pt-2 text text_type_main-medium"}>{prop.info.name}</span>
-            <ul className={`${styles.ingredientInfo} pb-15`}>
-                <li className={"text text_type_main-default text_color_inactive"}>Калории, ккал<br/><span
-                    className={"text_type_digits-default"}>{prop.info.calories}</span></li>
-                <li className={"text text_type_main-default text_color_inactive ml-5"}>Белки, г<br/><span
-                    className={"text_type_digits-default"}>{prop.info.proteins}</span></li>
-                <li className={"text text_type_main-default text_color_inactive ml-5"}>Жиры, г<br/><span
-                    className={"text_type_digits-default"}>{prop.info.fat}</span></li>
-                <li className={"text text_type_main-default text_color_inactive ml-5"}>Углеводы, г<br/><span
-                    className={"text_type_digits-default"}>{prop.info.carbohydrates}</span></li>
-            </ul>
+            {ingredientDetails != null &&
+                <>
+                        <span
+                            className={`pt-10 pl-10 pr-10 text_type_main-large ${styles.infoTitle}`}>Детали ингедиента</span>
+                    <span className={"pt-15 pb-15"}><img alt={ingredientDetails.name}
+                                                         src={ingredientDetails.image_large}/></span>
+                    <span className={"pb-4 pt-2 text text_type_main-medium"}>{ingredientDetails.name}</span>
+                    <ul className={`${styles.ingredientInfo} pb-15`}>
+                        <li className={"text text_type_main-default text_color_inactive"}>Калории, ккал<br/><span
+                            className={"text_type_digits-default"}>{ingredientDetails.calories}</span></li>
+                        <li className={"text text_type_main-default text_color_inactive ml-5"}>Белки, г<br/><span
+                            className={"text_type_digits-default"}>{ingredientDetails.proteins}</span></li>
+                        <li className={"text text_type_main-default text_color_inactive ml-5"}>Жиры, г<br/><span
+                            className={"text_type_digits-default"}>{ingredientDetails.fat}</span></li>
+                        <li className={"text text_type_main-default text_color_inactive ml-5"}>Углеводы, г<br/><span
+                            className={"text_type_digits-default"}>{ingredientDetails.carbohydrates}</span></li>
+                    </ul>
+                </>
+            }
+
         </>
     );
 }
