@@ -8,7 +8,7 @@ export default function OrderDetails() {
         orderId &&
         <>
         <span
-            className={'pt-30 pb-8 text text_type_digits-large'}>{orderId}</span>
+            className={'pl-30 pr-30 pt-30 pb-8 text text_type_digits-large'}>{orderId}</span>
             <span
                 className={'text text_type_main-medium'}>идентификатор заказа</span>
             <span className={'pt-15 pb-15'}><img alt={'Done'} src={doneImg}/></span>

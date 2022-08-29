@@ -20,7 +20,6 @@ import BurgerConstructorRow
 
 export default function BurgerConstructor() {
     const dispatch = useDispatch();
-
     const [, dropTarget] = useDrop({
         accept: 'ingredient',
         drop(itemId) {
@@ -56,25 +55,6 @@ export default function BurgerConstructor() {
         setIsOpen(true);
     };
 
-    const mainIngredientLine = (element) => {
-        let result = [];
-        for (let i = 0; i < element.count; i++) {
-            result.push(<BurgerConstructorRow handleDelete={handleDelete}
-                                              id={element.id}
-                                              text={ingredientsFullList.filter(
-                                                  el => el._id ===
-                                                      element.id)[0].name}
-                                              price={ingredientsFullList.filter(
-                                                  el => el._id ===
-                                                      element.id)[0].price}
-                                              thumbnail={ingredientsFullList.filter(
-                                                  el => el._id ===
-                                                      element.id)[0].image}/>);
-        }
-        return (
-            result
-        );
-    };
     return (
         <div ref={dropTarget}>
             <ul className={`pt-25 pl-10 ${styles.constructor}`}>
@@ -91,7 +71,18 @@ export default function BurgerConstructor() {
                 }
                 {mainIngredient != null &&
                     mainIngredient.map((element, index) => (
-                        mainIngredientLine(element)
+                        <li className={'p-5'} key={element.uuid}>
+                        <BurgerConstructorRow handleDelete={handleDelete}
+                                              text={ingredientsFullList.filter(
+                                                  el => el._id ===
+                                                      element.id)[0].name}
+                                              price={ingredientsFullList.filter(
+                                                  el => el._id ===
+                                                      element.id)[0].price}
+                                              thumbnail={ingredientsFullList.filter(
+                                                  el => el._id ===
+                                                      element.id)[0].image}/>
+                        </li>
                     ))
                 }
                 {bunIngredient != null &&

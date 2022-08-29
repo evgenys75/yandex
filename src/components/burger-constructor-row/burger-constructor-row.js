@@ -9,7 +9,6 @@ import {useDrop, useDrag} from 'react-dnd';
 import {
     CHANGE_POSITION,
 } from '../../services/actions/user-burger';
-import {v4 as uuidv4} from 'uuid';
 
 export default function BurgerConstructorRow(props) {
     const dispatch = useDispatch();
@@ -25,7 +24,7 @@ export default function BurgerConstructorRow(props) {
         },
     });
     return (
-        <li key={uuidv4()} className={'p-5'} ref={dropRef}>
+        <div ref={dropRef}>
             <div className={styles.ingredient} ref={dragRef}>
                 <DragIcon/>
                 <ConstructorElement
@@ -36,6 +35,6 @@ export default function BurgerConstructorRow(props) {
                     thumbnail={props.thumbnail}
                 />
             </div>
-        </li>
+        </div>
     );
 }

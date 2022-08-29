@@ -10,9 +10,10 @@ import styles from './burger-ingredient.module.css';
 export default function BurgerIngridient(props) {
     const id = props.id;
     const count = 1;
+    const uuid = null;
     const [, dragRef] = useDrag({
         type: 'ingredient',
-        item: {id, count},
+        item: {id, count, uuid},
     });
     return (
         <>

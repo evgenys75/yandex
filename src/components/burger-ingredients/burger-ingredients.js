@@ -100,9 +100,9 @@ export default function BurgerIngredients() {
                                               qty={userBurgerIngredients.filling.find(
                                                   el => el.id === element._id) !=
                                               null
-                                                  ? userBurgerIngredients.filling.find(
+                                                  ? userBurgerIngredients.filling.filter(
                                                       el => el.id ===
-                                                          element._id).count
+                                                          element._id).length
                                                   : null}/>
                         </li>
                     ))}
@@ -116,7 +116,13 @@ export default function BurgerIngredients() {
                             <BurgerIngridient image={element.image}
                                               name={element.name}
                                               price={element.price} id={element._id}
-                                              qty={null}/>
+                                              qty={userBurgerIngredients.filling.find(
+                                                  el => el.id === element._id) !=
+                                              null
+                                                  ? userBurgerIngredients.filling.filter(
+                                                      el => el.id ===
+                                                          element._id).length
+                                                  : null}/>
                         </li>
                     ))}
                 </ul>

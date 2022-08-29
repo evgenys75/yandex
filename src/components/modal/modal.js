@@ -20,7 +20,7 @@ export default function Modal({onClose, children}) {
     return ReactDOM.createPortal((
         <>
             <div className={styles.modal}>
-                <span className={`${styles.modalContent} p-30`}>{children}</span>
+                <span className={`${styles.modalContent}`}>{children}</span>
                 <button className={styles.close} onClick={onClose}>
                     <CloseIcon type="primary"/>
                 </button>
