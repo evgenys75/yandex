@@ -4,7 +4,6 @@ import {
     DELETE_INGREDIENT_FROM_BURGER,
     CHANGE_POSITION,
 } from '../actions/user-burger';
-import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
     totalPrice: 0,
@@ -14,14 +13,20 @@ const initialState = {
 export const userBurgerReducer = (state = initialState, action) => {
     switch (action.type) {
         case CHANGE_POSITION: {
-            const fillingIngredients = {...state.ingredients};
-            const chnagedPositionFiilingIngredients = {...fillingIngredients};
+
+            const from = state.ingredients.filling.findIndex(
+                el => el.uuid === action.payload.from);
+            const to = state.ingredients.filling.findIndex(
+                el => el.uuid === action.payload.to);
+            const tempElement = state.ingredients.filling[from];
+            state.ingredients.filling[from] = state.ingredients.filling[to];
+            state.ingredients.filling[to] = tempElement;
+            const chnagedPositionFiilingIngredients = {...state.ingredients};
             return {
                 ...state,
                 ingredients: {
                     ...state.ingredients,
-                    filling: chnagedPositionFiilingIngredients.filling.sort(
-                        () => .5 - Math.random()),
+                    filling: chnagedPositionFiilingIngredients.filling,
                 },
             };
         }
@@ -29,16 +34,14 @@ export const userBurgerReducer = (state = initialState, action) => {
             return state;
         }
         case ADD_INGREDIENT_TO_BURGER: {
-            const itemId = action.payload.itemId;
+            const item = action.payload;
             const itemType = action.payload.type;
-            const uuid = uuidv4();
-            itemId.uuid = uuid;
             if (itemType === 'bun') return {
                 ...state,
-                ingredients: {...state.ingredients, bun: itemId},
+                ingredients: {...state.ingredients, bun: item},
             };
             const fillingIngredients = {...state.ingredients};
-            fillingIngredients.filling.push(itemId);
+            fillingIngredients.filling.push(item);
             const increasedFiilingIngredients = {...fillingIngredients};
             return {
                 ...state,

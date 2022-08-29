@@ -11,9 +11,9 @@ import Modal from '../modal/modal';
 import {useSelector, useDispatch} from 'react-redux';
 import {useDrop} from 'react-dnd';
 import {
-    ADD_INGREDIENT_TO_BURGER,
     DELETE_INGREDIENT_FROM_BURGER,
 } from '../../services/actions/user-burger';
+import {addIngredientToBurger} from '../../services/actions/user-burger';
 import {sendOrder} from '../../services/actions/order';
 import BurgerConstructorRow
     from '../burger-constructor-row/burger-constructor-row';
@@ -22,13 +22,11 @@ export default function BurgerConstructor() {
     const dispatch = useDispatch();
     const [, dropTarget] = useDrop({
         accept: 'ingredient',
-        drop(itemId) {
+        drop(item) {
             const type = ingredientsFullList.filter(
-                el => el._id === itemId.id)[0].type;
-            dispatch({
-                type: ADD_INGREDIENT_TO_BURGER,
-                payload: {itemId: itemId, type: type},
-            });
+                el => el._id === item.id)[0].type;
+            item.type = type;
+            dispatch(addIngredientToBurger(item));
         },
     });
     const {ingredients: userBurgerIngredients} = useSelector(
@@ -72,16 +70,16 @@ export default function BurgerConstructor() {
                 {mainIngredient != null &&
                     mainIngredient.map((element, index) => (
                         <li className={'p-5'} key={element.uuid}>
-                        <BurgerConstructorRow handleDelete={handleDelete}
-                                              text={ingredientsFullList.filter(
-                                                  el => el._id ===
-                                                      element.id)[0].name}
-                                              price={ingredientsFullList.filter(
-                                                  el => el._id ===
-                                                      element.id)[0].price}
-                                              thumbnail={ingredientsFullList.filter(
-                                                  el => el._id ===
-                                                      element.id)[0].image}/>
+                            <BurgerConstructorRow uuid={element.uuid} handleDelete={handleDelete}
+                                                  text={ingredientsFullList.filter(
+                                                      el => el._id ===
+                                                          element.id)[0].name}
+                                                  price={ingredientsFullList.filter(
+                                                      el => el._id ===
+                                                          element.id)[0].price}
+                                                  thumbnail={ingredientsFullList.filter(
+                                                      el => el._id ===
+                                                          element.id)[0].image}/>
                         </li>
                     ))
                 }

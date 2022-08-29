@@ -12,15 +12,15 @@ import {
 
 export default function BurgerConstructorRow(props) {
     const dispatch = useDispatch();
-    const id = props.id;
+    const uuid = props.uuid;
     const [, dragRef] = useDrag({
         type: 'sort',
-        item: {id},
+        item: {uuid},
     });
     const [, dropRef] = useDrop({
         accept: 'sort',
         drop(item) {
-            dispatch({type: CHANGE_POSITION, payload: {itemId: item}});
+            dispatch({type: CHANGE_POSITION, payload: {from:item.uuid,to:uuid}});
         },
     });
     return (
