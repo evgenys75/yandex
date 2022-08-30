@@ -1,92 +1,115 @@
 import React from 'react';
-import {DragIcon, ConstructorElement, Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from "./burger-constructor.module.css";
-import {useState, useContext, useMemo} from "react";
-import OrderDetails from "../order-details/order-details"
-import {BurgerContext, OrderContext} from '../../services/burger-context';
-import {apiEndPoint} from '../../utils/data';
+import {
+    ConstructorElement,
+    Button,
+    CurrencyIcon,
+} from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from './burger-constructor.module.css';
+import {useState} from 'react';
+import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
+import {useSelector, useDispatch} from 'react-redux';
+import {useDrop} from 'react-dnd';
+import {
+    DELETE_INGREDIENT_FROM_BURGER,
+} from '../../services/actions/user-burger';
+import {addIngredientToBurger} from '../../services/actions/user-burger';
+import {sendOrder} from '../../services/actions/order';
+import BurgerConstructorRow
+    from '../burger-constructor-row/burger-constructor-row';
 
 export default function BurgerConstructor() {
+    const dispatch = useDispatch();
+    const [, dropTarget] = useDrop({
+        accept: 'ingredient',
+        drop(item) {
+            const type = ingredientsFullList.filter(
+                el => el._id === item.id)[0].type;
+            item.type = type;
+            dispatch(addIngredientToBurger(item));
+        },
+    });
+    const {ingredients: userBurgerIngredients} = useSelector(
+        store => store.userBurger);
+    const {ingredientsFullList} = useSelector(store => store.ingredients);
     const [isOpen, setIsOpen] = useState(false);
-    const [orderId, setOrderId] = useState(null);
-    const currentIngridientsArray = useContext(BurgerContext).ingredientsFullList;
-    const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
-    const bunIngredient = useMemo(() => currentIngridientsArray.filter(el => el.type === 'bun')[random(0, currentIngridientsArray.filter(el => el.type === 'bun').length)], [currentIngridientsArray]);
-    const mainIngredient = useMemo(() => currentIngridientsArray.filter(el => el.type === 'main').sort(() => Math.random() - 0.5), [currentIngridientsArray]);
-
+    const bunIngredient = userBurgerIngredients.bun != null
+        ? ingredientsFullList.filter(
+            el => el._id === userBurgerIngredients.bun.id)[0]
+        : null;
+    const mainIngredient = userBurgerIngredients.filling != null
+        ? userBurgerIngredients.filling
+        : null;
+    const handleDelete = (id) => {
+        dispatch({type: DELETE_INGREDIENT_FROM_BURGER, payload: {itemId: id}});
+    };
     const handleCloseModal = () => {
         setIsOpen(false);
-    }
-
-    function checkResponse(res) {
-        return res.ok ? res.json() : Promise.reject(`res.ok: ${res.ok}, res.status: ${res.status}`);
-    }
+    };
 
     const createOrder = () => {
         const orderRequest = `{"ingredients": ["${bunIngredient._id}","${bunIngredient._id}"]}`;
-        fetch(`${apiEndPoint}orders`, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: 'POST',
-            body: orderRequest
-        }).then(checkResponse)
-            .then((data) => {
-                setOrderId(data.order.number);
-                setIsOpen(true);
-            }).catch((error) => {
-            console.log(error);
-        })
-    }
+        dispatch(sendOrder(orderRequest));
+        setIsOpen(true);
+    };
+
     return (
-        <>
+        <div ref={dropTarget}>
             <ul className={`pt-25 pl-10 ${styles.constructor}`}>
-                <li>
-                    <ConstructorElement
-                        type="top"
-                        isLocked={true}
-                        text={`${bunIngredient.name} (верх)`}
-                        price={bunIngredient.price}
-                        thumbnail={bunIngredient.image}
-                    />
-                </li>
-                {mainIngredient.slice(0, 2).map((element, index) => (
-                    <li key={element._id} className={"p-5"}>
-                        <span className={styles.ingredient}>
-                        <DragIcon/>
+                {bunIngredient != null &&
+                    <li>
                         <ConstructorElement
-                            isLocked={false}
-                            text={element.name}
-                            price={element.price}
-                            thumbnail={element.image}
+                            type="top"
+                            isLocked={true}
+                            text={`${bunIngredient.name} (верх)`}
+                            price={bunIngredient.price}
+                            thumbnail={bunIngredient.image}
                         />
-                        </span>
                     </li>
-                ))}
-                <li>
-                    <ConstructorElement
-                        type="bottom"
-                        isLocked={true}
-                        text={`${bunIngredient.name} (низ)`}
-                        price={bunIngredient.price}
-                        thumbnail={bunIngredient.image}
-                    />
-                </li>
-                <li className={`pt-10 ${styles.total}`}>
-                    <span className={"text text_type_digits-medium pr-10"}>100 <CurrencyIcon type="primary"/></span>
-                    <Button type="primary" size="large" onClick={createOrder}>
-                        Оформить заказ
-                    </Button>
-                </li>
+                }
+                {mainIngredient != null &&
+                    mainIngredient.map((element, index) => (
+                        <li className={'p-5'} key={element.uuid}>
+                            <BurgerConstructorRow uuid={element.uuid} handleDelete={handleDelete}
+                                                  text={ingredientsFullList.filter(
+                                                      el => el._id ===
+                                                          element.id)[0].name}
+                                                  price={ingredientsFullList.filter(
+                                                      el => el._id ===
+                                                          element.id)[0].price}
+                                                  thumbnail={ingredientsFullList.filter(
+                                                      el => el._id ===
+                                                          element.id)[0].image}/>
+                        </li>
+                    ))
+                }
+                {bunIngredient != null &&
+                    <li>
+                        <ConstructorElement
+                            type="bottom"
+                            isLocked={true}
+                            text={`${bunIngredient.name} (низ)`}
+                            price={bunIngredient.price}
+                            thumbnail={bunIngredient.image}
+                        />
+                    </li>
+                }
+                {bunIngredient != null &&
+                    <li className={`pt-10 ${styles.total}`}>
+                        <span className={'text text_type_digits-medium pr-10'}>5990<CurrencyIcon
+                            type="primary"/></span>
+
+                        <Button type="primary" size="large" onClick={createOrder}>
+                            Оформить заказ
+                        </Button>
+                    </li>
+                }
             </ul>
             {isOpen &&
-                <OrderContext.Provider value={orderId}>
-                    <Modal onClose={handleCloseModal}>
-                        <OrderDetails/>
-                    </Modal>
-                </OrderContext.Provider>
+                <Modal onClose={handleCloseModal}>
+                    <OrderDetails/>
+                </Modal>
             }
-        </>
+        </div>
     );
 }
