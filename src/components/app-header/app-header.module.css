@@ -4,7 +4,6 @@
     flex-direction: row;
 }
 .nav a{
-    color:#fff;
     text-decoration: none;
     display: flex;
     justify-content: center;
@@ -18,4 +17,21 @@
 .leftMenu{
     display: flex;
     flex-direction: row;
+}
+.link_active {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+}
+.link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    color: #8585ad;
+}
+.link:hover {
+    color: #fff;
 }

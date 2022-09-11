@@ -8,7 +8,16 @@
     flex-wrap: wrap;
 
 }
-
+.ingredientLink{
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 50%;
+    align-items: center;
+    text-align: center;
+}
 .tabs {
     display: flex;
 }

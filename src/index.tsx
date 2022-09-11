@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter} from 'react-router-dom';
 import './index.css';
 import App from './components/app/app';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
 import {rootReducer} from './services/reducers';
+import {ProvideAuth} from './services/auth';
 
 declare global {
     interface Window {
@@ -20,9 +22,15 @@ const composeEnhancers =
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App/>
-    </Provider>
+    <React.StrictMode>
+        <BrowserRouter>
+            <Provider store={store}>
+                <ProvideAuth>
+                    <App/>
+                </ProvideAuth>
+            </Provider>
+        </BrowserRouter>
+    </React.StrictMode>
     ,
     document.getElementById('root')
 );
