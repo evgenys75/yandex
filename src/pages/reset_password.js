@@ -5,10 +5,12 @@ import {
     Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import pagesStyle from "./pages.module.css";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
+import {useSelector} from "react-redux";
 import {useAuth} from '../services/auth';
 
 export function ResetPasswordPage() {
+    const state = useSelector((store) => store);
     let auth = useAuth();
     const [pass, setValuePass] = React.useState("");
     const [token, setValueToken] = React.useState("");
@@ -19,10 +21,20 @@ export function ResetPasswordPage() {
             auth.reset(pass, token);
         }
 
+    if (!state.user.userForgotPasswordSuccess) {
+        return (
+            <Redirect
+                to={{
+                    pathname: "/forgot-password",
+                }}
+            />
+        );
+    }
+
     return (
         <section className={pagesStyle.page}>
-            <form>
-                <div className={pagesStyle.wrap} onClick={reset}>
+            <form onSubmit={reset}>
+                <div className={pagesStyle.wrap}>
                     <h1 className="text text_type_main-medium">Восстановление пароля</h1>
                     <div className={`${pagesStyle.input} pb-6 pt-6`}>
                         <PasswordInput

@@ -43,9 +43,11 @@ export default function AppHeader() {
                         className={'text text_type_main-default text_color_inactive pl-2 pr-4'}>Лента заказов</span>
                 </a>
                 </span>
-                <a href={'/'}>
+                <Link
+                    to="/"
+                >
                     <Logo/>
-                </a>
+                </Link>
                 <Link
                     to="/profile"
                     className={linkState.profile ? headerStyles.link_active : headerStyles.link}

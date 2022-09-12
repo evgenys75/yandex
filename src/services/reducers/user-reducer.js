@@ -1,10 +1,12 @@
 import {
     USER_AUTHORIZATION,
-    USER_UPDATE
+    USER_UPDATE,
+    USER_FORGOT_SUCCESS
 } from '../actions/user';
 
 const initialState = {
     userAuth: false,
+    userForgotPasswordSuccess: false,
     userAuthProfile: {
         email: '',
         name: ''
@@ -13,12 +15,24 @@ const initialState = {
 
 export const userReducer = (state = initialState, action) => {
     switch (action.type) {
+        case USER_FORGOT_SUCCESS: {
+            return {
+                ...state,
+                userForgotPasswordSuccess: true
+            };
+        }
         case USER_UPDATE: {
-            console.log(action);
-            return {...state, userAuthProfile:{email:action.payload.data.user.email,name:action.payload.data.user.name}};
+            return {
+                ...state,
+                userAuthProfile: {email: action.payload.data.user.email, name: action.payload.data.user.name}
+            };
         }
         case USER_AUTHORIZATION: {
-            return {...state, userAuth: true,userAuthProfile:{email:action.payload.data.user.email,name:action.payload.data.user.name}};
+            return {
+                ...state,
+                userAuth: true,
+                userAuthProfile: {email: action.payload.data.user.email, name: action.payload.data.user.name}
+            };
         }
         default: {
             return state;

@@ -4,12 +4,13 @@ import {
     PasswordInput,
     Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {Redirect, Link} from 'react-router-dom';
+import {Redirect, Link, useLocation} from 'react-router-dom';
 import loginStyle from "./login.module.css";
 import {useAuth} from '../services/auth';
 
 export function LoginPage() {
     let auth = useAuth();
+    const location = useLocation();
     const [value, setValue] = useState("");
     const onChange = (e) => {
         setValue(e.target.value);
@@ -27,7 +28,7 @@ export function LoginPage() {
     );
 
     if (auth.user.userAuth) {
-        return <Redirect to="/"/>;
+        return <Redirect to={location?.state?.from || "/"}/>;
     }
 
     return (

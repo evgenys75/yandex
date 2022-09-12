@@ -28,13 +28,15 @@ export default function App() {
     }, [dispatch]);
     const location = useLocation();
     const onPage = location.state?.onPage;
+
     function closeModal() {
         history.goBack();
     }
+
     return (
         <>
             <AppHeader/>
-            <Switch>
+            <Switch location={onPage || location}>
                 <Route path="/login" exact={true}>
                     <LoginPage/>
                 </Route>
@@ -50,21 +52,6 @@ export default function App() {
                 <ProtectedRoute path="/profile">
                     <ProfilePage/>
                 </ProtectedRoute>
-                {onPage ? (
-                    <Modal
-                        onClose={() => {
-                            closeModal();
-                        }}
-                    >
-                        <Route path="/ingredients/:id" exact={true}>
-                            <IngredientDetails/>
-                        </Route>
-                    </Modal>
-                ) : (
-                    <Route path="/ingredients/:id" exact={true}>
-                        <IngredientDetails/>
-                    </Route>
-                )}
                 <Route path="/" exact={true}>
                     <main className={appStyles.main}>
                         <DndProvider backend={HTML5Backend}>
@@ -74,6 +61,17 @@ export default function App() {
                     </main>
                 </Route>
             </Switch>
+            {onPage &&
+                <Modal
+                    onClose={() => {
+                        closeModal();
+                    }}
+                >
+                    <Route path="/ingredients/:id" exact={true}>
+                        <IngredientDetails/>
+                    </Route>
+                </Modal>
+            }
         </>
     );
 }

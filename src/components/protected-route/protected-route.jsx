@@ -1,11 +1,11 @@
-import { useAuth } from '../../services/auth';
-import { Route, Redirect } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import {useAuth} from '../../services/auth';
+import {Route, Redirect, useLocation} from 'react-router-dom';
+import {useEffect, useState} from 'react';
 
-export function ProtectedRoute({ children, ...rest }) {
-    let { getUser, ...auth } = useAuth();
+export function ProtectedRoute({children, ...rest}) {
+    const location = useLocation();
+    let {getUser, ...auth} = useAuth();
     const [isUserLoaded, setUserLoaded] = useState(false);
-    console.log(isUserLoaded);
     const init = async () => {
         await getUser();
         setUserLoaded(true);
@@ -13,11 +13,12 @@ export function ProtectedRoute({ children, ...rest }) {
 
     useEffect(() => {
         init();
-    });
+    }, []);
 
     if (!isUserLoaded) {
         return null;
     }
+
     return (
         <Route
             {...rest}
@@ -26,7 +27,10 @@ export function ProtectedRoute({ children, ...rest }) {
                     children
                 ) : (
                     <Redirect
-                        to='/login'
+                        to={{
+                            pathname: "/login",
+                            state: {from: location},
+                        }}
                     />
                 )
             }

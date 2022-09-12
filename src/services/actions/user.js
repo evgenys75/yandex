@@ -4,10 +4,19 @@ import {setCookie, deleteCookie, getCookie} from '../../utils/utils'
 
 export const USER_AUTHORIZATION = 'USER_AUTHORIZATION';
 export const USER_UPDATE = 'USER_UPDATE';
+export const USER_FORGOT_SUCCESS = 'USER_FORGOT_SUCCESS';
+
+export function userForgotSuccess() {
+    return function (dispatch) {
+        dispatch({
+            type: USER_FORGOT_SUCCESS
+        });
+    }
+}
 
 export function getUserInfo(user) {
-    return function (dispatch) {
-        fetch(`${apiEndPoint}auth/user`, {
+    return dispatch => {
+        return fetch(`${apiEndPoint}auth/user`, {
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache',
@@ -21,8 +30,11 @@ export function getUserInfo(user) {
         }).then(checkResponse)
             .then(data => {
                 if (data.success) {
+                    dispatch({
+                        type: USER_AUTHORIZATION,
+                        payload: {data}
+                    })
                 }
-                return data.success;
             })
             .catch(e => {
                 console.log(e);

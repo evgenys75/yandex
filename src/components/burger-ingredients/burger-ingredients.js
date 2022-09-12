@@ -6,10 +6,11 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import {useDispatch, useSelector} from 'react-redux';
 import {SET_INGREDIENT_DETAILS} from '../../services/actions/ingredients';
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 export default function BurgerIngredients() {
     const dispatch = useDispatch();
+    const location = useLocation();
     const {ingredientsFullList} = useSelector(store => store.ingredients);
     const {ingredients: userBurgerIngredients} = useSelector(
         store => store.userBurger);
@@ -78,7 +79,7 @@ export default function BurgerIngredients() {
                             <Link
                                 to={{
                                     pathname: `/ingredients/${element._id}`,
-                                    state: {"onPage": "/"},
+                                    state: {"onPage": location},
                                 }}
                                 key={element._id}
                                 className={styles.ingredientLink}
@@ -102,7 +103,7 @@ export default function BurgerIngredients() {
                             <Link
                                 to={{
                                     pathname: `/ingredients/${element._id}`,
-                                    state: {"onPage": "/"},
+                                    state: {"onPage": location},
                                 }}
                                 key={element._id}
                                 className={styles.ingredientLink}
@@ -129,7 +130,7 @@ export default function BurgerIngredients() {
                             <Link
                                 to={{
                                     pathname: `/ingredients/${element._id}`,
-                                    state: {"onPage": "/"},
+                                    state: {"onPage": location},
                                 }}
                                 key={element._id}
                                 className={styles.ingredientLink}
