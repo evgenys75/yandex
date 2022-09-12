@@ -17,6 +17,7 @@ import {addIngredientToBurger} from '../../services/actions/user-burger';
 import {sendOrder} from '../../services/actions/order';
 import BurgerConstructorRow
     from '../burger-constructor-row/burger-constructor-row';
+import {useHistory} from "react-router-dom";
 
 export default function BurgerConstructor() {
     const dispatch = useDispatch();
@@ -46,11 +47,16 @@ export default function BurgerConstructor() {
     const handleCloseModal = () => {
         setIsOpen(false);
     };
-
+    const history = useHistory();
+    const authUser = useSelector((store) => store.user.userAuth);
     const createOrder = () => {
-        const orderRequest = `{"ingredients": ["${bunIngredient._id}","${bunIngredient._id}"]}`;
-        dispatch(sendOrder(orderRequest));
-        setIsOpen(true);
+        if (!authUser) {
+            return history.replace("/login");
+        } else {
+            const orderRequest = `{"ingredients": ["${bunIngredient._id}","${bunIngredient._id}"]}`;
+            dispatch(sendOrder(orderRequest));
+            setIsOpen(true);
+        }
     };
 
     return (
