@@ -9,7 +9,7 @@ export default function IngredientDetails() {
     const data = useSelector((store) => {
         return store.ingredients.ingredientsFullList;
     });
-    const {ingredientDetails} = useSelector(store => store.ingredients);
+    let {ingredientDetails} = useSelector(store => store.ingredients);
 
     if (id) {
         ingredientDetails = data.find((ingr) => ingr._id === id);

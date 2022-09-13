@@ -8,16 +8,22 @@
     flex-wrap: wrap;
 
 }
-.ingredientLink{
+
+.ingredientsList li {
+    max-width: 48%;
+}
+
+.ingredientLink {
     color: #fff;
     text-decoration: none;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    width: 50%;
+    width: 100%;
     align-items: center;
     text-align: center;
 }
+
 .tabs {
     display: flex;
 }
