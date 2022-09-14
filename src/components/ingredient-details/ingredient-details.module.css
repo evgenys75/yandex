@@ -1,5 +1,4 @@
 .infoTitle {
-    align-self: flex-start;
 }
 
 .ingredientInfo {
@@ -12,4 +11,10 @@
 
 .ingredientInfo li {
     text-align: center;
+}
+
+.ingredient {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

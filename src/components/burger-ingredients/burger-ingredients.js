@@ -6,9 +6,11 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import {useDispatch, useSelector} from 'react-redux';
 import {SET_INGREDIENT_DETAILS} from '../../services/actions/ingredients';
+import {Link, useLocation} from "react-router-dom";
 
 export default function BurgerIngredients() {
     const dispatch = useDispatch();
+    const location = useLocation();
     const {ingredientsFullList} = useSelector(store => store.ingredients);
     const {ingredients: userBurgerIngredients} = useSelector(
         store => store.userBurger);
@@ -19,10 +21,6 @@ export default function BurgerIngredients() {
     const handleCloseModal = () => {
         setIsOpen({isOpen: false});
         dispatch({type: SET_INGREDIENT_DETAILS, data: []});
-    };
-    const handleClickIngredient = (element) => {
-        setIsOpen({isOpen: true});
-        dispatch({type: SET_INGREDIENT_DETAILS, data: element});
     };
     const scrollToIngredientSectionBun = () => {
         refBun.current.scrollIntoView({behavior: 'smooth'});
@@ -76,15 +74,24 @@ export default function BurgerIngredients() {
                     </li>
                     {ingredientsFullList.filter(el => el.type === 'bun').map((element, index) => (
                         <li key={element._id}
-                            className={`pt-6 pb-10 ${styles.ingredient}`}
-                            onClick={() => handleClickIngredient(element)}>
-                            <BurgerIngridient image={element.image}
-                                              name={element.name}
-                                              price={element.price} id={element._id}
-                                              qty={userBurgerIngredients.bun !=
-                                              null &&
-                                              userBurgerIngredients.bun.id ===
-                                              element._id ? 2 : null}/>
+                            className={`pt-6 pb-10`}
+                        >
+                            <Link
+                                to={{
+                                    pathname: `/ingredients/${element._id}`,
+                                    state: {background: location}
+                                }}
+                                key={element._id}
+                                className={styles.ingredientLink}
+                            >
+                                <BurgerIngridient image={element.image}
+                                                  name={element.name}
+                                                  price={element.price} id={element._id}
+                                                  qty={userBurgerIngredients.bun !=
+                                                  null &&
+                                                  userBurgerIngredients.bun.id ===
+                                                  element._id ? 2 : null}/>
+                            </Link>
                         </li>
                     ))}
                     <li ref={refSauce}
@@ -92,18 +99,26 @@ export default function BurgerIngredients() {
                     </li>
                     {ingredientsFullList.filter(el => el.type === 'sauce').map((element, index) => (
                         <li key={element._id}
-                            className={`pt-6 pb-10 ${styles.ingredient}`}
-                            onClick={() => handleClickIngredient(element)}>
-                            <BurgerIngridient image={element.image}
-                                              name={element.name}
-                                              price={element.price} id={element._id}
-                                              qty={userBurgerIngredients.filling.find(
-                                                  el => el.id === element._id) !=
-                                              null
-                                                  ? userBurgerIngredients.filling.filter(
-                                                      el => el.id ===
-                                                          element._id).length
-                                                  : null}/>
+                            className={`pt-6 pb-10`}>
+                            <Link
+                                to={{
+                                    pathname: `/ingredients/${element._id}`,
+                                    state: {background: location}
+                                }}
+                                key={element._id}
+                                className={styles.ingredientLink}
+                            >
+                                <BurgerIngridient image={element.image}
+                                                  name={element.name}
+                                                  price={element.price} id={element._id}
+                                                  qty={userBurgerIngredients.filling.find(
+                                                      el => el.id === element._id) !=
+                                                  null
+                                                      ? userBurgerIngredients.filling.filter(
+                                                          el => el.id ===
+                                                              element._id).length
+                                                      : null}/>
+                            </Link>
                         </li>
                     ))}
                     <li ref={refMain}
@@ -111,18 +126,26 @@ export default function BurgerIngredients() {
                     </li>
                     {ingredientsFullList.filter(el => el.type === 'main').map((element, index) => (
                         <li key={element._id}
-                            className={`pt-6 pb-10 ${styles.ingredient}`}
-                            onClick={() => handleClickIngredient(element)}>
-                            <BurgerIngridient image={element.image}
-                                              name={element.name}
-                                              price={element.price} id={element._id}
-                                              qty={userBurgerIngredients.filling.find(
-                                                  el => el.id === element._id) !=
-                                              null
-                                                  ? userBurgerIngredients.filling.filter(
-                                                      el => el.id ===
-                                                          element._id).length
-                                                  : null}/>
+                            className={`pt-6 pb-10`}>
+                            <Link
+                                to={{
+                                    pathname: `/ingredients/${element._id}`,
+                                    state: {background: location}
+                                }}
+                                key={element._id}
+                                className={styles.ingredientLink}
+                            >
+                                <BurgerIngridient image={element.image}
+                                                  name={element.name}
+                                                  price={element.price} id={element._id}
+                                                  qty={userBurgerIngredients.filling.find(
+                                                      el => el.id === element._id) !=
+                                                  null
+                                                      ? userBurgerIngredients.filling.filter(
+                                                          el => el.id ===
+                                                              element._id).length
+                                                      : null}/>
+                            </Link>
                         </li>
                     ))}
                 </ul>

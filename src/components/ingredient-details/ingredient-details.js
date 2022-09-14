@@ -1,13 +1,23 @@
 import React from 'react';
 import styles from './ingredient-details.module.css';
 import {useSelector} from 'react-redux';
+import {useParams} from "react-router-dom";
 
 export default function IngredientDetails() {
-    const {ingredientDetails} = useSelector(store => store.ingredients);
+
+    const {id} = useParams();
+    const data = useSelector((store) => {
+        return store.ingredients.ingredientsFullList;
+    });
+    let {ingredientDetails} = useSelector(store => store.ingredients);
+
+    if (id) {
+        ingredientDetails = data.find((ingr) => ingr._id === id);
+    }
     return (
         <>
             {ingredientDetails != null &&
-                <>
+                <div className={styles.ingredient}>
                     <span
                         className={`pt-10 pl-10 pr-10 text_type_main-large ${styles.infoTitle}`}>Детали ингедиента</span>
                     <span className={'pt-15 pb-15'}><img alt={ingredientDetails.name}
@@ -32,7 +42,7 @@ export default function IngredientDetails() {
                                 className={'text_type_digits-default'}>{ingredientDetails.carbohydrates}</span>
                         </li>
                     </ul>
-                </>
+                </div>
             }
 
         </>
