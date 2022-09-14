@@ -32,43 +32,46 @@ export default function App() {
     }
 
     return (<>
-            <AppHeader/>
-            <Switch location={background || location}>
-                <Route path="/login" exact={true}>
-                    <LoginPage/>
-                </Route>
-                <Route path="/register" exact={true}>
-                    <RegisterPage/>
-                </Route>
-                <Route path="/forgot-password" exact={true}>
-                    <ForgotPasswordPage/>
-                </Route>
-                <Route path="/reset-password" exact={true}>
-                    <ResetPasswordPage/>
-                </Route>
-                <ProtectedRoute path="/profile">
-                    <ProfilePage/>
-                </ProtectedRoute>
-                <Route path="/" exact={true}>
-                    <main className={appStyles.main}>
-                        <DndProvider backend={HTML5Backend}>
-                            <BurgerIngredients/>
-                            <BurgerConstructor/>
-                        </DndProvider>
-                    </main>
-                </Route>
-                <Route path="/ingredients/:id" exact={true}>
+        <AppHeader/>
+        <Switch location={background || location}>
+            <Route path="/login" exact={true}>
+                <LoginPage/>
+            </Route>
+            <Route path="/register" exact={true}>
+                <RegisterPage/>
+            </Route>
+            <Route path="/forgot-password" exact={true}>
+                <ForgotPasswordPage/>
+            </Route>
+            <Route path="/reset-password" exact={true}>
+                <ResetPasswordPage/>
+            </Route>
+            <ProtectedRoute path="/profile">
+                <ProfilePage/>
+            </ProtectedRoute>
+            <Route path="/" exact={true}>
+                <main className={appStyles.main}>
+                    <DndProvider backend={HTML5Backend}>
+                        <BurgerIngredients/>
+                        <BurgerConstructor/>
+                    </DndProvider>
+                </main>
+            </Route>
+            <Route path="/ingredients/:id" exact={true}>
+                <IngredientDetails/>
+            </Route>
+        </Switch>
+        {background && (
+            <Route path="/ingredients/:id" exact={true}>
+                <Modal
+                    onClose={() => {
+                        closeModal();
+                    }}
+                >
                     <IngredientDetails/>
-                </Route>
-            </Switch>
-            {background && <Modal
-                onClose={() => {
-                    closeModal();
-                }}
-            >
-                <Route path="/ingredients/:id" exact={true}>
-                    <IngredientDetails/>
-                </Route>
-            </Modal>}
-        </>);
+                </Modal>
+            </Route>
+        )}
+          
+    </>);
 }
