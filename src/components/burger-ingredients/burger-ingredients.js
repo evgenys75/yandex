@@ -79,7 +79,7 @@ export default function BurgerIngredients() {
                             <Link
                                 to={{
                                     pathname: `/ingredients/${element._id}`,
-                                    state: {"onPage": location},
+                                    state: {background: location}
                                 }}
                                 key={element._id}
                                 className={styles.ingredientLink}
@@ -103,7 +103,7 @@ export default function BurgerIngredients() {
                             <Link
                                 to={{
                                     pathname: `/ingredients/${element._id}`,
-                                    state: {"onPage": location},
+                                    state: {background: location}
                                 }}
                                 key={element._id}
                                 className={styles.ingredientLink}
@@ -130,7 +130,7 @@ export default function BurgerIngredients() {
                             <Link
                                 to={{
                                     pathname: `/ingredients/${element._id}`,
-                                    state: {"onPage": location},
+                                    state: {background: location}
                                 }}
                                 key={element._id}
                                 className={styles.ingredientLink}

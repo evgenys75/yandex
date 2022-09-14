@@ -8,35 +8,32 @@ import {useDispatch} from 'react-redux';
 import {getIngredientsFullList} from '../../services/actions/ingredients';
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
-import {Switch, Route, useLocation, useHistory} from "react-router-dom";
+import {Switch, Route, useHistory, useLocation} from "react-router-dom";
 import IngredientDetails from "../ingredient-details/ingredient-details"
 import Modal from "../modal/modal";
 import {
-    ProfilePage,
-    LoginPage,
-    RegisterPage,
-    ForgotPasswordPage,
-    ResetPasswordPage
+    ProfilePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage
 } from '../../pages';
 import {ProtectedRoute} from '../protected-route/protected-route';
 
 export default function App() {
+    const location = useLocation();
+
+    const background = location.state && location.state.background;
     const dispatch = useDispatch();
     const history = useHistory();
+    console.log(history.length);
     useEffect(() => {
         dispatch(getIngredientsFullList());
     }, [dispatch]);
-    const location = useLocation();
-    const onPage = location.state?.onPage;
 
     function closeModal() {
         history.goBack();
     }
 
-    return (
-        <>
+    return (<>
             <AppHeader/>
-            <Switch location={onPage || location}>
+            <Switch location={background || location}>
                 <Route path="/login" exact={true}>
                     <LoginPage/>
                 </Route>
@@ -60,18 +57,18 @@ export default function App() {
                         </DndProvider>
                     </main>
                 </Route>
+                <Route path="/ingredients/:id" exact={true}>
+                    <IngredientDetails/>
+                </Route>
             </Switch>
-            {onPage &&
-                <Modal
-                    onClose={() => {
-                        closeModal();
-                    }}
-                >
-                    <Route path="/ingredients/:id" exact={true}>
-                        <IngredientDetails/>
-                    </Route>
-                </Modal>
-            }
-        </>
-    );
+            {background && <Modal
+                onClose={() => {
+                    closeModal();
+                }}
+            >
+                <Route path="/ingredients/:id" exact={true}>
+                    <IngredientDetails/>
+                </Route>
+            </Modal>}
+        </>);
 }

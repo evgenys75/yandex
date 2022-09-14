@@ -30,7 +30,7 @@ ReactDOM.render(
                 </ProvideAuth>
             </Provider>
         </BrowserRouter>
-    </React.StrictMode>
+        </React.StrictMode>
     ,
     document.getElementById('root')
 );
