@@ -14,7 +14,7 @@ export default function AppHeader() {
         feed: false,
         profile: false,
     });
-    const onClick = (elem) => {
+    const onClick = (elem: String) => {
         elem === "burger"
             ? setLinkState({burger: true, feed: false, profile: false})
             : elem === "feed"
@@ -51,7 +51,7 @@ export default function AppHeader() {
                 <Link
                     to="/profile"
                     className={linkState.profile ? headerStyles.link_active : headerStyles.link}
-                    onClick={() => onClick()}
+                    onClick={() => onClick('')}
                 >
                     <ProfileIcon type={linkState.profile ? "primary" : "secondary"}/>
                     <span

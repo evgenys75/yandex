@@ -4,16 +4,20 @@ import {
     DELETE_INGREDIENT_FROM_BURGER,
     CHANGE_POSITION,
 } from '../actions/user-burger';
+import {TIngredientWithUniqueId} from '../../utils/types'
 
-const initialState = {
+export type TUserBurgerState = {
+    totalPrice: number,
+    ingredients: { bun: string, filling: Array<TIngredientWithUniqueId> },
+}
+const initialState: TUserBurgerState = {
     totalPrice: 0,
-    ingredients: {bun: null, filling: []},
+    ingredients: {bun: '', filling: []},
 };
 
-export const userBurgerReducer = (state = initialState, action) => {
+export const userBurgerReducer = (state = initialState, action:any) => {
     switch (action.type) {
         case CHANGE_POSITION: {
-
             const from = state.ingredients.filling.findIndex(
                 el => el.uuid === action.payload.from);
             const to = state.ingredients.filling.findIndex(

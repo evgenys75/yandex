@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import {
     EmailInput,
     PasswordInput,
@@ -11,14 +11,14 @@ import {useAuth} from '../services/auth';
 import {Redirect} from "react-router-dom";
 
 export function RegisterPage() {
-    let auth = useAuth();
+    let auth:any = useAuth();
     const [valueName, setValueName] = React.useState("");
     const [valuePassword, setValuePassword] = React.useState("");
-    const onChangePassword = (e) => {
+    const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
         setValuePassword(e.target.value);
     };
     const [valueEmail, setValueEmail] = React.useState("");
-    const onChangeEmail = (e) => {
+    const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setValueEmail(e.target.value);
     };
 

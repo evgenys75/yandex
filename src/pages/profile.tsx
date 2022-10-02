@@ -13,7 +13,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateUserProfile} from "../services/actions/user";
 
 export function ProfilePage() {
-    const auth = useAuth();
+    const auth:any = useAuth();
     const logout = useCallback(
         (e) => {
             e.preventDefault();
@@ -78,7 +78,7 @@ export function ProfilePage() {
 
 function ProfileSection() {
     const dispatch = useDispatch();
-    const state = useSelector((store) => store);
+    const state = useSelector((store:any) => store);
     const userProfile = state.user.userAuthProfile;
     React.useEffect(() => {
         setName(userProfile.name);
@@ -88,9 +88,9 @@ function ProfileSection() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    function updateProfile(e) {
+    function updateProfile(e: { preventDefault: () => void; }) {
         e.preventDefault();
-        dispatch(updateUserProfile(email, password, name));
+        dispatch(updateUserProfile(email, password, name) as any);
     }
 
     function resetProfile() {

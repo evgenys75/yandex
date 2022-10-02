@@ -34,4 +34,5 @@ BurgerIngridient.propTypes = {
     image: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    qty: PropTypes.number
 };

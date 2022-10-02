@@ -3,17 +3,19 @@ import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngridient from '../burger-ingridient/burger-ingridient';
 import styles from './burger-ingridient.module.css';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import Modal from '../modal/modal';
+import {Modal} from '../modal/modal';
 import {useDispatch, useSelector} from 'react-redux';
 import {SET_INGREDIENT_DETAILS} from '../../services/actions/ingredients';
 import {Link, useLocation} from "react-router-dom";
+import {TIngredient} from '../../utils/types';
+
 
 export default function BurgerIngredients() {
     const dispatch = useDispatch();
     const location = useLocation();
-    const {ingredientsFullList} = useSelector(store => store.ingredients);
-    const {ingredients: userBurgerIngredients} = useSelector(
-        store => store.userBurger);
+    const ingredientsFullList: Array<TIngredient> = useSelector((store: any) => store.ingredients);
+    const {ingredients:userBurgerIngredients} = useSelector(
+        (store: any) => store.userBurger);
     const [state, setIsOpen] = useState({
         isOpen: false,
     });
@@ -22,29 +24,29 @@ export default function BurgerIngredients() {
         setIsOpen({isOpen: false});
         dispatch({type: SET_INGREDIENT_DETAILS, data: []});
     };
+    const refBun = React.useRef<HTMLLIElement>(null);
+    const refSauce = React.useRef<HTMLLIElement>(null);
+    const refMain = React.useRef<HTMLLIElement>(null);
     const scrollToIngredientSectionBun = () => {
-        refBun.current.scrollIntoView({behavior: 'smooth'});
+        if (refBun?.current?.scrollIntoView) refBun.current.scrollIntoView({behavior: 'smooth'});
     };
     const scrollToIngredientSectionSauce = () => {
-        refSauce.current.scrollIntoView({behavior: 'smooth'});
+        refSauce?.current?.scrollIntoView({behavior: 'smooth'});
     };
     const scrollToIngredientSectionMain = () => {
-        refMain.current.scrollIntoView({behavior: 'smooth'});
+        refMain?.current?.scrollIntoView({behavior: 'smooth'});
     };
-    const refBun = React.useRef();
-    const refSauce = React.useRef();
-    const refMain = React.useRef();
 
     const tabsFollow = () => {
-        const saucesHeadingBox = refSauce.current.getBoundingClientRect();
-        const mainHeadingBox = refMain.current.getBoundingClientRect();
+        const saucesHeadingBox = refSauce?.current?.getBoundingClientRect();
+        const mainHeadingBox = refMain?.current?.getBoundingClientRect();
 
-        if (saucesHeadingBox.y < 275 && mainHeadingBox.y > 275 && currentTab !==
-            'sauces') {
+        if ((saucesHeadingBox?.y) && (mainHeadingBox?.y) && (saucesHeadingBox.y < 275 && mainHeadingBox.y > 275 && currentTab !==
+            'sauces')) {
             setCurrentTab('sauce');
-        } else if (mainHeadingBox.y < 275 && currentTab !== 'main') {
+        } else if ((mainHeadingBox?.y) && (mainHeadingBox.y < 275 && currentTab !== 'main')) {
             setCurrentTab('main');
-        } else if (saucesHeadingBox.y > 275 && currentTab !== 'buns') {
+        } else if ((saucesHeadingBox?.y) && (saucesHeadingBox.y > 275 && currentTab !== 'buns')) {
             setCurrentTab('buns');
         }
 
@@ -72,7 +74,7 @@ export default function BurgerIngredients() {
                     <li ref={refBun}
                         className={`${styles.sectionTitle} p-10 text text_type_main-medium`}>Булки
                     </li>
-                    {ingredientsFullList.filter(el => el.type === 'bun').map((element, index) => (
+                    {ingredientsFullList.filter((el:any) => el.type === 'bun').map((element:any) => (
                         <li key={element._id}
                             className={`pt-6 pb-10`}
                         >
@@ -97,7 +99,7 @@ export default function BurgerIngredients() {
                     <li ref={refSauce}
                         className={`${styles.sectionTitle} p-10 text text_type_main-medium`}>Соусы
                     </li>
-                    {ingredientsFullList.filter(el => el.type === 'sauce').map((element, index) => (
+                    {ingredientsFullList.filter((el:any) => el.type === 'sauce').map((element:any) => (
                         <li key={element._id}
                             className={`pt-6 pb-10`}>
                             <Link
@@ -112,10 +114,10 @@ export default function BurgerIngredients() {
                                                   name={element.name}
                                                   price={element.price} id={element._id}
                                                   qty={userBurgerIngredients.filling.find(
-                                                      el => el.id === element._id) !=
+                                                      (el:any) => el.id === element._id) !=
                                                   null
                                                       ? userBurgerIngredients.filling.filter(
-                                                          el => el.id ===
+                                                          (el:any) => el.id ===
                                                               element._id).length
                                                       : null}/>
                             </Link>
@@ -124,7 +126,7 @@ export default function BurgerIngredients() {
                     <li ref={refMain}
                         className={`${styles.sectionTitle} p-10 text text_type_main-medium`}>Ингридиенты
                     </li>
-                    {ingredientsFullList.filter(el => el.type === 'main').map((element, index) => (
+                    {ingredientsFullList.filter((el:any) => el.type === 'main').map((element:any) => (
                         <li key={element._id}
                             className={`pt-6 pb-10`}>
                             <Link
@@ -139,10 +141,10 @@ export default function BurgerIngredients() {
                                                   name={element.name}
                                                   price={element.price} id={element._id}
                                                   qty={userBurgerIngredients.filling.find(
-                                                      el => el.id === element._id) !=
+                                                      (el:any) => el.id === element._id) !=
                                                   null
                                                       ? userBurgerIngredients.filling.filter(
-                                                          el => el.id ===
+                                                          (el:any) => el.id ===
                                                               element._id).length
                                                       : null}/>
                             </Link>

@@ -1,9 +1,9 @@
-import {React} from 'react';
+import React from 'react';
 import doneImg from '../../images/done.png';
 import {useSelector} from 'react-redux';
 
 export default function OrderDetails() {
-    const {orderId} = useSelector(store => store.order);
+    const {orderId} = useSelector((store:any) => store.order);
     return (
         orderId &&
         <>
