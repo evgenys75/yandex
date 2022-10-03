@@ -2,17 +2,17 @@ import React from 'react';
 import styles from './ingredient-details.module.css';
 import {useSelector} from 'react-redux';
 import {useParams} from "react-router-dom";
-
+import {TIngredient} from '../../utils/types';
 export default function IngredientDetails() {
 
-    const {id} = useParams();
-    const data = useSelector((store) => {
+    const id:string = useParams();
+    const data = useSelector((store:any) => {
         return store.ingredients.ingredientsFullList;
     });
-    let {ingredientDetails} = useSelector(store => store.ingredients);
+    let {ingredientDetails} = useSelector((store:any) => store.ingredients);
 
     if (id) {
-        ingredientDetails = data.find((ingr) => ingr._id === id);
+        ingredientDetails = data.find((ingr:TIngredient) => ingr._id === id);
     }
     return (
         <>

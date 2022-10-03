@@ -8,13 +8,14 @@ const initialState = {
     ingredientDetails: null,
 };
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case GET_INGREDIENTS: {
             return {...state, ingredientsFullList: action.data.data};
         }
         case SET_INGREDIENT_DETAILS: {
-            return {...state, ingredientDetails: action.data};
+            return '';
+            //return {...state, ingredientDetails: action.data};
         }
         default: {
             return state;

@@ -7,7 +7,7 @@ import {
 import styles from './burger-constructor.module.css';
 import {useState} from 'react';
 import OrderDetails from '../order-details/order-details';
-import Modal from '../modal/modal';
+import {Modal} from '../modal/modal';
 import {useSelector, useDispatch} from 'react-redux';
 import {useDrop} from 'react-dnd';
 import {
@@ -15,50 +15,54 @@ import {
 } from '../../services/actions/user-burger';
 import {addIngredientToBurger} from '../../services/actions/user-burger';
 import {sendOrder} from '../../services/actions/order';
-import BurgerConstructorRow
+import {BurgerConstructorRow}
     from '../burger-constructor-row/burger-constructor-row';
 import {useHistory} from "react-router-dom";
+import {TIngredient, TIngredientWithUniqueId} from '../../utils/types';
 
 export default function BurgerConstructor() {
     const dispatch = useDispatch();
     const [, dropTarget] = useDrop({
         accept: 'ingredient',
-        drop(item) {
+        drop(item: TIngredient) {
+            const dragElementId = Object.values(item)[0];
+            console.log(ingredientsFullList.filter((el: any) => el._id === '60d3b41abdacab0026a733c6'));
             const type = ingredientsFullList.filter(
-                el => el._id === item.id)[0].type;
+                (el: any) => el._id === dragElementId)[0].type;
             item.type = type;
             dispatch(addIngredientToBurger(item));
         },
     });
     const {ingredients: userBurgerIngredients} = useSelector(
-        store => store.userBurger);
-    const {ingredientsFullList} = useSelector(store => store.ingredients);
+        (store: any) => store.userBurger);
+    const ingredientsFullList = useSelector((store: any) => store.ingredients.ingredientsFullList);
+
+
     const [isOpen, setIsOpen] = useState(false);
     const bunIngredient = userBurgerIngredients.bun != null
         ? ingredientsFullList.filter(
-            el => el._id === userBurgerIngredients.bun.id)[0]
+            (el: any) => el._id === userBurgerIngredients.bun.id)[0]
         : null;
     const mainIngredient = userBurgerIngredients.filling != null
         ? userBurgerIngredients.filling
         : null;
-    const handleDelete = (id) => {
+    const handleDelete = (id: String) => {
         dispatch({type: DELETE_INGREDIENT_FROM_BURGER, payload: {itemId: id}});
     };
     const handleCloseModal = () => {
         setIsOpen(false);
     };
     const history = useHistory();
-    const authUser = useSelector((store) => store.user.userAuth);
+    const authUser = useSelector((store: any) => store.user.userAuth);
     const createOrder = () => {
         if (!authUser) {
             return history.replace("/login");
         } else {
-            const orderRequest = `{"ingredients": ["${bunIngredient._id}","${bunIngredient._id}"]}`;
-            dispatch(sendOrder(orderRequest));
+            const orderRequest = `{"ingredients": ["${bunIngredient?._id}","${bunIngredient?._id}"]}`;
+            dispatch(sendOrder(orderRequest) as any);
             setIsOpen(true);
         }
     };
-
     return (
         <div ref={dropTarget}>
             <ul className={`pt-25 pl-10 ${styles.constructor}`}>
@@ -74,18 +78,18 @@ export default function BurgerConstructor() {
                     </li>
                 }
                 {mainIngredient != null &&
-                    mainIngredient.map((element, index) => (
+                    mainIngredient.map((element: TIngredientWithUniqueId, index: number) => (
                         <li className={'p-5'} key={element.uuid}>
                             <BurgerConstructorRow uuid={element.uuid} handleDelete={handleDelete}
                                                   text={ingredientsFullList.filter(
-                                                      el => el._id ===
-                                                          element.id)[0].name}
+                                                      (el: any) => el._id ===
+                                                          element.uuid)[0].name}
                                                   price={ingredientsFullList.filter(
-                                                      el => el._id ===
-                                                          element.id)[0].price}
+                                                      (el: any) => el._id ===
+                                                          element.uuid)[0].price}
                                                   thumbnail={ingredientsFullList.filter(
-                                                      el => el._id ===
-                                                          element.id)[0].image}/>
+                                                      (el: any) => el._id ===
+                                                          element.uuid)[0].image}/>
                         </li>
                     ))
                 }

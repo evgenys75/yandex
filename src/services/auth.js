@@ -37,7 +37,7 @@ export function useProvideAuth() {
             console.log(error);
         });
     };
-    const reset = async (pass, token) => {
+    const reset = async (pass:string, token:string) => {
         const request = `{"password": "${pass}","token": "${token}"}`;
         fetch(`${apiEndPoint}password-reset/reset`, {
             headers: {
@@ -55,7 +55,10 @@ export function useProvideAuth() {
     const signOut = (token) => dispatch(userSignOut(token));
     const signIn = (email, password) =>
         dispatch(userSignIn(email, password));
-    const getUser = () => dispatch(getUserInfo(user));
+    const getUser = () => {
+        dispatch(getUserInfo(user));
+    }
+
     return {
         user,
         getUser,

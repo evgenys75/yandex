@@ -10,13 +10,13 @@ import {useSelector} from "react-redux";
 import {useAuth} from '../services/auth';
 
 export function ResetPasswordPage() {
-    const state = useSelector((store) => store);
-    let auth = useAuth();
+    const state = useSelector((store:any) => store);
+    let auth:any = useAuth();
     const [pass, setValuePass] = React.useState("");
     const [token, setValueToken] = React.useState("");
 
     let reset =
-        e => {
+        (e: { preventDefault: () => void; }) => {
             e.preventDefault();
             auth.reset(pass, token);
         }
@@ -39,6 +39,7 @@ export function ResetPasswordPage() {
                     <div className={`${pagesStyle.input} pb-6 pt-6`}>
                         <PasswordInput
                             value={pass}
+                            name={"password"}
                             onChange={(e) => setValuePass(e.target.value)}
                         />
                     </div>

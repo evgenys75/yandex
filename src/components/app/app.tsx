@@ -10,19 +10,29 @@ import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
 import {Switch, Route, useHistory, useLocation} from "react-router-dom";
 import IngredientDetails from "../ingredient-details/ingredient-details"
-import Modal from "../modal/modal";
+import {Modal} from "../modal/modal";
 import {
     ProfilePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage
 } from '../../pages';
 import {ProtectedRoute} from '../protected-route/protected-route';
 
 export default function App() {
-    const location = useLocation();
-
+    type TLocation = {
+        background: {
+            pathname: string;
+            search: string;
+            hash: string;
+            state: null;
+            key: string;
+        }
+        from: string;
+        state?: object;
+    };
+    const location = useLocation<TLocation>();
     const background = location.state && location.state.background;
     const dispatch = useDispatch();
     const history = useHistory();
-    console.log(history.length);
+
     useEffect(() => {
         dispatch(getIngredientsFullList());
     }, [dispatch]);
@@ -72,6 +82,6 @@ export default function App() {
                 </Modal>
             </Route>
         )}
-          
+
     </>);
 }

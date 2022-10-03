@@ -1,23 +1,23 @@
-import React from "react";
+import React, {ChangeEvent, FormEvent} from "react";
 import {
     Button,
     EmailInput
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import pageStyle from "./pages.module.css";
-import {Link,Redirect} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {useAuth} from '../services/auth';
 import {useState} from 'react';
 import {useSelector} from "react-redux";
 
 export function ForgotPasswordPage() {
-    const state = useSelector((store) => store);
-    let auth = useAuth();
+    const state = useSelector((store:any) => store);
+    let auth:any = useAuth();
     const [email, setEmail] = useState('');
-    const onChange = e => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
     };
     let forgot =
-        e => {
+        (e: FormEvent) => {
             e.preventDefault();
             auth.forgot(email);
         }

@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {ChangeEvent, useCallback, useState} from 'react';
 import {
     EmailInput,
     PasswordInput,
@@ -9,14 +9,18 @@ import loginStyle from "./login.module.css";
 import {useAuth} from '../services/auth';
 
 export function LoginPage() {
-    let auth = useAuth();
-    const location = useLocation();
+    let auth:any = useAuth();
+    type TLocation = {
+        from: string;
+        state?: object;
+    }
+    const location = useLocation<TLocation>();
     const [value, setValue] = useState("");
-    const onChange = (e) => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value);
     };
     const [valuePassword, setValuePassword] = useState("");
-    const onChangePassword = (e) => {
+    const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
         setValuePassword(e.target.value);
     };
     const loginHandler = useCallback(
@@ -36,11 +40,10 @@ export function LoginPage() {
             <form className={loginStyle.form} onSubmit={loginHandler}>
                 <h1 className="pb-6 text text_type_main-medium">Вход</h1>
                 <div className={"pb-6"}>
-                    <EmailInput placeholder="Email" name="email" value={value} onChange={onChange}/>
+                    <EmailInput name="email" value={value} onChange={onChange}/>
                 </div>
                 <div className={"pb-6"}>
                     <PasswordInput
-                        placeholder="Password"
                         name="password"
                         value={valuePassword}
                         onChange={onChangePassword}
