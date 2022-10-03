@@ -1,14 +1,12 @@
 import React, {useState} from 'react';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
-import BurgerIngridient from '../burger-ingridient/burger-ingridient';
+import {BurgerIngredient} from '../burger-ingridient/burger-ingridient';
 import styles from './burger-ingridient.module.css';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import {Modal} from '../modal/modal';
 import {useDispatch, useSelector} from 'react-redux';
 import {SET_INGREDIENT_DETAILS} from '../../services/actions/ingredients';
 import {Link, useLocation} from "react-router-dom";
-import {TIngredient} from '../../utils/types';
-
 
 export default function BurgerIngredients() {
     const dispatch = useDispatch();
@@ -93,13 +91,13 @@ export default function BurgerIngredients() {
                                 key={element._id}
                                 className={styles.ingredientLink}
                             >
-                                <BurgerIngridient image={element.image}
+                                <BurgerIngredient image={element.image}
                                                   name={element.name}
                                                   price={element.price} id={element._id}
-                                                  qty={userBurgerIngredients.bun !=
-                                                  null &&
+                                                  qty={userBurgerIngredients.bun !==
+                                                  0 &&
                                                   userBurgerIngredients.bun.id ===
-                                                  element._id ? 2 : null}/>
+                                                  element._id ? 2 : 0}/>
                             </Link>
                         </li>
                     ))}
@@ -117,7 +115,7 @@ export default function BurgerIngredients() {
                                 key={element._id}
                                 className={styles.ingredientLink}
                             >
-                                <BurgerIngridient image={element.image}
+                                <BurgerIngredient image={element.image}
                                                   name={element.name}
                                                   price={element.price} id={element._id}
                                                   qty={userBurgerIngredients.filling.find(
@@ -144,7 +142,7 @@ export default function BurgerIngredients() {
                                 key={element._id}
                                 className={styles.ingredientLink}
                             >
-                                <BurgerIngridient image={element.image}
+                                <BurgerIngredient image={element.image}
                                                   name={element.name}
                                                   price={element.price} id={element._id}
                                                   qty={userBurgerIngredients.filling.find(

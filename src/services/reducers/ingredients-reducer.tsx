@@ -5,7 +5,7 @@ import {
 
 const initialState = {
     ingredientsFullList: [],
-    //ingredientDetails: null,
+    ingredientDetails: null,
 };
 
 export const ingredientsReducer = (state = initialState, action: any) => {
