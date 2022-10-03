@@ -18,32 +18,30 @@ import {sendOrder} from '../../services/actions/order';
 import {BurgerConstructorRow}
     from '../burger-constructor-row/burger-constructor-row';
 import {useHistory} from "react-router-dom";
-import {TIngredient,TIngredientWithUniqueId} from '../../utils/types';
+import {TIngredient, TIngredientWithUniqueId} from '../../utils/types';
 
 export default function BurgerConstructor() {
     const dispatch = useDispatch();
     const [, dropTarget] = useDrop({
         accept: 'ingredient',
-        drop(item:TIngredient) {
-            //console.log(Object.values(item)[0]);
+        drop(item: TIngredient) {
             const dragElementId = Object.values(item)[0];
-            console.log(ingredientsFullList.filter((el:any) => el._id === '60d3b41abdacab0026a733c6'));
+            console.log(ingredientsFullList.filter((el: any) => el._id === '60d3b41abdacab0026a733c6'));
             const type = ingredientsFullList.filter(
-                (el:any) => el._id === dragElementId)[0].type;
+                (el: any) => el._id === dragElementId)[0].type;
             item.type = type;
             dispatch(addIngredientToBurger(item));
         },
     });
     const {ingredients: userBurgerIngredients} = useSelector(
-        (store:any) => store.userBurger);
-    const ingredientsFullList = useSelector((store:any) => store.ingredients.ingredientsFullList);
-
+        (store: any) => store.userBurger);
+    const ingredientsFullList = useSelector((store: any) => store.ingredients.ingredientsFullList);
 
 
     const [isOpen, setIsOpen] = useState(false);
     const bunIngredient = userBurgerIngredients.bun != null
         ? ingredientsFullList.filter(
-            (el:any) => el._id === userBurgerIngredients.bun.id)[0]
+            (el: any) => el._id === userBurgerIngredients.bun.id)[0]
         : null;
     const mainIngredient = userBurgerIngredients.filling != null
         ? userBurgerIngredients.filling
@@ -55,7 +53,7 @@ export default function BurgerConstructor() {
         setIsOpen(false);
     };
     const history = useHistory();
-    const authUser = useSelector((store:any) => store.user.userAuth);
+    const authUser = useSelector((store: any) => store.user.userAuth);
     const createOrder = () => {
         if (!authUser) {
             return history.replace("/login");
@@ -84,13 +82,13 @@ export default function BurgerConstructor() {
                         <li className={'p-5'} key={element.uuid}>
                             <BurgerConstructorRow uuid={element.uuid} handleDelete={handleDelete}
                                                   text={ingredientsFullList.filter(
-                                                      (el:any) => el._id ===
+                                                      (el: any) => el._id ===
                                                           element.uuid)[0].name}
                                                   price={ingredientsFullList.filter(
-                                                      (el:any) => el._id ===
+                                                      (el: any) => el._id ===
                                                           element.uuid)[0].price}
                                                   thumbnail={ingredientsFullList.filter(
-                                                      (el:any) => el._id ===
+                                                      (el: any) => el._id ===
                                                           element.uuid)[0].image}/>
                         </li>
                     ))
