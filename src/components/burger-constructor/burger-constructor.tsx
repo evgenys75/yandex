@@ -18,15 +18,18 @@ import {sendOrder} from '../../services/actions/order';
 import {BurgerConstructorRow}
     from '../burger-constructor-row/burger-constructor-row';
 import {useHistory} from "react-router-dom";
-import {TIngredientWithUniqueId} from '../../utils/types';
+import {TIngredient,TIngredientWithUniqueId} from '../../utils/types';
 
 export default function BurgerConstructor() {
     const dispatch = useDispatch();
     const [, dropTarget] = useDrop({
         accept: 'ingredient',
-        drop(item:TIngredientWithUniqueId) {
+        drop(item:TIngredient) {
+            //console.log(Object.values(item)[0]);
+            const dragElementId = Object.values(item)[0];
+            console.log(ingredientsFullList.filter((el:any) => el._id === '60d3b41abdacab0026a733c6'));
             const type = ingredientsFullList.filter(
-                (el:any) => el._id === item.uuid)[0].type;
+                (el:any) => el._id === dragElementId)[0].type;
             item.type = type;
             dispatch(addIngredientToBurger(item));
         },

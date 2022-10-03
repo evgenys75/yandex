@@ -55,8 +55,6 @@ export default function BurgerIngredients() {
 
     };
 
-
-
     return (
         <section className={styles.ingredientsSection}>
             <p className="text text_type_main-large pt-10 pb-5">Соберите бургер</p>
