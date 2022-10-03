@@ -34,7 +34,7 @@ export default function BurgerConstructor() {
     const {ingredients: userBurgerIngredients} = useSelector(
         (store:any) => store.userBurger);
     const ingredientsFullList = useSelector((store:any) => store.ingredients.ingredientsFullList);
-    console.log(ingredientsFullList);
+
     const [isOpen, setIsOpen] = useState(false);
     const bunIngredient = userBurgerIngredients.bun != null
         ? ingredientsFullList.filter(

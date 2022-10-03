@@ -13,7 +13,12 @@ import {TIngredient} from '../../utils/types';
 export default function BurgerIngredients() {
     const dispatch = useDispatch();
     const location = useLocation();
-    const ingredientsFullList: Array<TIngredient> = useSelector((store: any) => store.ingredients);
+    const ingredientsFullListObjects = useSelector((store: any) => store.ingredients);
+    const ingredientsFullListArray = Object.keys(ingredientsFullListObjects).map(function(index){
+        let ingredientObject = ingredientsFullListObjects[index];
+        return ingredientObject;
+    });
+    const ingredientsFullList = ingredientsFullListArray[0];
     const {ingredients:userBurgerIngredients} = useSelector(
         (store: any) => store.userBurger);
     const [state, setIsOpen] = useState({
@@ -51,6 +56,8 @@ export default function BurgerIngredients() {
         }
 
     };
+
+
 
     return (
         <section className={styles.ingredientsSection}>
