@@ -8,12 +8,13 @@ import {
 import headerStyles from './app-header.module.css';
 import {Link} from "react-router-dom";
 
+interface ILinkState {
+    burger: boolean,
+    feed: boolean,
+    profile: boolean,
+}
 export default function AppHeader() {
-    const [linkState, setLinkState] = useState({
-        burger: true,
-        feed: false,
-        profile: false,
-    });
+    const [linkState, setLinkState] = useState<ILinkState>({burger: true, feed: false, profile: false});
     const onClick = (elem: String) => {
         elem === "burger"
             ? setLinkState({burger: true, feed: false, profile: false})
@@ -21,7 +22,6 @@ export default function AppHeader() {
                 ? setLinkState({burger: false, feed: true, profile: false})
                 : setLinkState({burger: false, feed: false, profile: true});
     };
-
     return (
         <header className={`p-4 ${headerStyles.header}`}>
             <nav className={headerStyles.nav}>
