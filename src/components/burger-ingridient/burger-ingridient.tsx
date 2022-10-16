@@ -7,19 +7,19 @@ import {useDrag} from 'react-dnd';
 import styles from './burger-ingredient.module.css';
 
 interface IBurgerIngredient {
-    id: number;
+    _id: number;
     image: string;
     name: string;
     qty: number;
     price: number;
 }
 
-export const BurgerIngredient: FC<IBurgerIngredient> = ({id, image, name, qty,price}) => {
+export const BurgerIngredient: FC<IBurgerIngredient> = ({_id, image, name, qty,price}) => {
     const count = 1;
     const uuid = null;
     const [, dragRef] = useDrag({
         type: 'ingredient',
-        item: {id, count, uuid},
+        item: {_id, count, uuid},
     });
     return (
         <>

@@ -37,11 +37,11 @@ export default function AppHeader() {
                     <span
                         className={'text text_type_main-default pl-2 pr-4'}>Конструктор</span>
                 </Link>
-                <a href={'#orders'}>
+                <Link to={'/feed'}>
                     <ListIcon type="secondary"/>
                     <span
                         className={'text text_type_main-default text_color_inactive pl-2 pr-4'}>Лента заказов</span>
-                </a>
+                </Link>
                 </span>
                 <Link
                     to="/"

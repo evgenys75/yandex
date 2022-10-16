@@ -13,3 +13,12 @@ export type TIngredient = {
     __v: number;
 };
 export type TIngredientWithUniqueId = TIngredient & { uuid: string };
+export type TOrder = {
+    ingredients: Array<string>;
+    _id: string;
+    name: string;
+    status: string;
+    number: number;
+    createdAt: string;
+    updatedAt: string;
+};

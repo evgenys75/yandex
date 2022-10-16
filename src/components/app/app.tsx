@@ -3,18 +3,21 @@ import AppHeader from '../app-header/app-header';
 import appStyles from './app.module.css';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
+import FeedDetails from '../feed-details/feed-details'
 import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import {getIngredientsFullList} from '../../services/actions/ingredients';
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
-import {Switch, Route, useHistory, useLocation} from "react-router-dom";
+import {Switch, Route, useHistory, useLocation, useRouteMatch} from "react-router-dom";
 import IngredientDetails from "../ingredient-details/ingredient-details"
 import {Modal} from "../modal/modal";
 import {
-    ProfilePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage
+    ProfilePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, FeedPage, OrderPage
 } from '../../pages';
 import {ProtectedRoute} from '../protected-route/protected-route';
+import {getOrdersFullList, getOrdersUserList} from "../../services/actions/feed";
+
 
 export default function App() {
     type TLocation = {
@@ -33,9 +36,17 @@ export default function App() {
     const dispatch = useDispatch();
     const history = useHistory();
 
+
+    const isUserOrder = useRouteMatch({path: '/profile/orders'});
+
     useEffect(() => {
         dispatch(getIngredientsFullList());
-    }, [dispatch]);
+        if (isUserOrder) {
+            dispatch(getOrdersUserList());
+        } else {
+            dispatch(getOrdersFullList());
+        }
+    }, [dispatch, isUserOrder]);
 
     function closeModal() {
         history.goBack();
@@ -70,7 +81,29 @@ export default function App() {
             <Route path="/ingredients/:id" exact={true}>
                 <IngredientDetails/>
             </Route>
+
+            <Route path='/ingredients/:id'>
+
+            </Route>
+
+            <Route path='/feed' exact={true}>
+                <FeedPage/>
+            </Route>
+            <Route path='/feed/:id' exact={true}>
+                <OrderPage/>
+            </Route>
         </Switch>
+        {background && (
+            <Route path='/feed/:id'>
+                <Modal
+                    onClose={() => {
+                        closeModal();
+                    }}
+                >
+                    <FeedDetails/>
+                </Modal>
+            </Route>
+        )}
         {background && (
             <Route path="/ingredients/:id" exact={true}>
                 <Modal

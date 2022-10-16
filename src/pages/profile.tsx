@@ -11,6 +11,8 @@ import {Switch, Route, useHistory} from "react-router-dom";
 import {useAuth} from '../services/auth';
 import {useDispatch, useSelector} from "react-redux";
 import {updateUserProfile} from "../services/actions/user";
+import {FeedPage} from "./feed";
+import {ProtectedRoute} from "../components/protected-route/protected-route";
 
 export function ProfilePage() {
     const auth:any = useAuth();
@@ -63,11 +65,11 @@ export function ProfilePage() {
                     </nav>
 
                     <Switch>
+                        <Route path='/profile/orders' exact={true}>
+                            <FeedPage/>
+                        </Route>
                         <Route path="/profile" exact={true}>
                             <ProfileSection/>
-                        </Route>
-                        <Route path="/profile/orders" exact={true}>
-
                         </Route>
                     </Switch>
                 </div>

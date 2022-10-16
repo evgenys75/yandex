@@ -2,9 +2,9 @@ import {apiEndPoint} from '../../utils/data';
 import {checkResponse} from '../../utils/utils'
 import {setCookie, deleteCookie, getCookie} from '../../utils/utils'
 
-export const USER_AUTHORIZATION = 'USER_AUTHORIZATION';
-export const USER_UPDATE = 'USER_UPDATE';
-export const USER_FORGOT_SUCCESS = 'USER_FORGOT_SUCCESS';
+export const USER_AUTHORIZATION: 'USER_AUTHORIZATION' = 'USER_AUTHORIZATION';
+export const USER_UPDATE: 'USER_UPDATE' = 'USER_UPDATE';
+export const USER_FORGOT_SUCCESS: 'USER_FORGOT_SUCCESS' = 'USER_FORGOT_SUCCESS';
 
 export function userForgotSuccess() {
     return function (dispatch) {

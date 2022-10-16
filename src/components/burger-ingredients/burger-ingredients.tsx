@@ -91,7 +91,7 @@ export default function BurgerIngredients() {
                             >
                                 <BurgerIngredient image={element.image}
                                                   name={element.name}
-                                                  price={element.price} id={element._id}
+                                                  price={element.price} _id={element._id}
                                                   qty={userBurgerIngredients.bun !==
                                                   0 &&
                                                   userBurgerIngredients.bun.id ===
@@ -115,7 +115,7 @@ export default function BurgerIngredients() {
                             >
                                 <BurgerIngredient image={element.image}
                                                   name={element.name}
-                                                  price={element.price} id={element._id}
+                                                  price={element.price} _id={element._id}
                                                   qty={userBurgerIngredients.filling.find(
                                                       (el:any) => el.id === element._id) !=
                                                   null
@@ -142,7 +142,7 @@ export default function BurgerIngredients() {
                             >
                                 <BurgerIngredient image={element.image}
                                                   name={element.name}
-                                                  price={element.price} id={element._id}
+                                                  price={element.price} _id={element._id}
                                                   qty={userBurgerIngredients.filling.find(
                                                       (el:any) => el.id === element._id) !=
                                                   null

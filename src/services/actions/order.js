@@ -1,7 +1,7 @@
 import {apiEndPoint} from '../../utils/data';
 import {checkResponse} from '../../utils/utils'
 
-export const CREATE_ORDER = 'CREATE_ORDER';
+export const CREATE_ORDER: 'CREATE_ORDER' = 'CREATE_ORDER';
 
 export const sendOrder = (orderRequest) => {
     return dispatch => {
