@@ -23,19 +23,21 @@ export const socketMiddleware = (
 
             if (socket) {
                 socket.onopen = (event) => {
-
+                    dispatch({ type: onOpen, payload: event });
                 };
 
                 socket.onerror = (event) => {
-
+                    dispatch({ type: onError, payload: event });
                 };
 
                 socket.onclose = (event) => {
-
+                    dispatch({ type: onClose, payload: event });
                 };
 
                 socket.onmessage = (event) => {
-
+                    const { data } = event;
+                    const parsedData = JSON.parse(data);
+                    dispatch({ type: onOrders, payload: parsedData });
                 };
             }
             next(action);

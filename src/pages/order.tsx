@@ -1,5 +1,4 @@
-import React, { FC, useEffect } from 'react';
-import orderStyles from './order.module.css'
+import React, {FC} from 'react';
 
 export const OrderPage: FC = () => {
     return (

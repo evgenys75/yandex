@@ -38,7 +38,13 @@ export interface IWSOrderGetAction {
 }
 
 export type TShopsActions =
-    | IGetOrdersAction;
+    | IGetOrdersAction
+    | IWSConnectionStartAction
+    | IWSConnectionSuccessAction
+    | IWSConnectionErrorAction
+    | IWSConnectionClosedAction
+    | IWSOrderGetAction;
+
 export const getOrdersAction = (): IGetOrdersAction => ({
     type: FEED_REQUEST
 });

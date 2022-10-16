@@ -1,8 +1,8 @@
-import {FC, useEffect} from "react";
+import {FC} from "react";
 import {Link, useLocation, useRouteMatch} from 'react-router-dom';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import feedStyle from "./feed.module.css";
-import {TIngredient, TOrder} from '../utils/types';
+import {TOrder} from '../utils/types';
 import {useSelector} from '../services/hook'
 
 
@@ -80,7 +80,7 @@ export const FeedPage: FC = () => {
                                 <p className='text text_type_main-medium mb-4'>В работе:</p>
                                 <ul className={feedStyle.orderlist}>
                                     {ordersFullList.filter(
-                                        (el: TOrder) => el.status !=
+                                        (el: TOrder) => el.status !==
                                             'done').map((element) => (
                                         <li className={'text text_type_digits-default'}>
                                             {element.number}

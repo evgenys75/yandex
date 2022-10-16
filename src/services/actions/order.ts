@@ -1,10 +1,10 @@
 import {apiEndPoint} from '../../utils/data';
 import {checkResponse} from '../../utils/utils'
 
-export const CREATE_ORDER: 'CREATE_ORDER' = 'CREATE_ORDER';
 
-export const sendOrder = (orderRequest) => {
-    return dispatch => {
+export const CREATE_ORDER: 'CREATE_ORDER' = 'CREATE_ORDER';
+export const sendOrder = (orderRequest:string) => {
+    return (dispatch:any) => {
         fetch(`${apiEndPoint}orders`, {
             headers: {
                 'Content-Type': 'application/json',

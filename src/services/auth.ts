@@ -1,16 +1,10 @@
 import {useContext, createContext} from 'react';
-import React from 'react';
 import {apiEndPoint} from '../utils/data';
 import {checkResponse} from '../utils/utils'
 import {userSignIn, userSignOut, getUserInfo, userForgotSuccess} from "./actions/user";
 import {useDispatch, useSelector} from "react-redux";
 
 const AuthContext = createContext(undefined);
-
-export function ProvideAuth({children}) {
-    const auth = useProvideAuth();
-    return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
-}
 
 export function useAuth() {
     return useContext(AuthContext);
@@ -19,10 +13,10 @@ export function useAuth() {
 export function useProvideAuth() {
 
     const dispatch = useDispatch();
-    const user = useSelector((store) => {
+    const user = useSelector((store:any) => {
         return store.user;
     });
-    const forgot = async email => {
+    const forgot = async (email:string) => {
         const request = `{"email": "${email}"}`;
         fetch(`${apiEndPoint}password-reset`, {
             headers: {
@@ -52,8 +46,8 @@ export function useProvideAuth() {
             console.log(error);
         });
     };
-    const signOut = (token) => dispatch(userSignOut(token));
-    const signIn = (email, password) =>
+    const signOut = (token:string) => dispatch(userSignOut(token));
+    const signIn = (email:string, password:string) =>
         dispatch(userSignIn(email, password));
     const getUser = () => {
         dispatch(getUserInfo(user));

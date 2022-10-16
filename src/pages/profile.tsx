@@ -12,10 +12,9 @@ import {useAuth} from '../services/auth';
 import {useDispatch, useSelector} from "react-redux";
 import {updateUserProfile} from "../services/actions/user";
 import {FeedPage} from "./feed";
-import {ProtectedRoute} from "../components/protected-route/protected-route";
 
 export function ProfilePage() {
-    const auth:any = useAuth();
+    const auth: any = useAuth();
     const logout = useCallback(
         (e) => {
             e.preventDefault();
@@ -80,7 +79,7 @@ export function ProfilePage() {
 
 function ProfileSection() {
     const dispatch = useDispatch();
-    const state = useSelector((store:any) => store);
+    const state = useSelector((store: any) => store);
     const userProfile = state.user.userAuthProfile;
     React.useEffect(() => {
         setName(userProfile.name);

@@ -1,9 +1,7 @@
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import {FC} from 'react';
 import styles from './feed-details.module.css';
 import {useParams} from "react-router-dom";
 import {useSelector} from '../../services/hook'
-import {TIngredient, TIngredientWithUniqueId, TOrder} from "../../utils/types";
 
 export default function FeedDetails() {
     const id: string = useParams();

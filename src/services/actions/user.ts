@@ -6,17 +6,17 @@ export const USER_AUTHORIZATION: 'USER_AUTHORIZATION' = 'USER_AUTHORIZATION';
 export const USER_UPDATE: 'USER_UPDATE' = 'USER_UPDATE';
 export const USER_FORGOT_SUCCESS: 'USER_FORGOT_SUCCESS' = 'USER_FORGOT_SUCCESS';
 
-export function userForgotSuccess() {
-    return function (dispatch) {
+export function userForgotSuccess():any {
+    return function (dispatch:any) {
         dispatch({
             type: USER_FORGOT_SUCCESS
         });
     }
 }
 
-export function getUserInfo(user) {
-    return dispatch => {
-        return fetch(`${apiEndPoint}auth/user`, {
+export function getUserInfo(user:any):any {
+    return (dispatch:any) => {
+        fetch(`${apiEndPoint}auth/user`, {
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache',
@@ -42,8 +42,8 @@ export function getUserInfo(user) {
     }
 }
 
-export function updateUserProfile(email, password, name) {
-    return dispatch => {
+export function updateUserProfile(email:string, password:string, name:string) {
+    return (dispatch:any) => {
         fetch(`${apiEndPoint}auth/user`, {
             method: 'PATCH',
             mode: 'cors',
@@ -75,8 +75,8 @@ export function updateUserProfile(email, password, name) {
     }
 }
 
-export function userSignIn(userEmail, userPassword) {
-    return dispatch => {
+export function userSignIn(userEmail:string, userPassword:string):any {
+    return (dispatch:any) => {
         fetch(`${apiEndPoint}auth/login`, {
             method: 'POST',
             mode: 'cors',
@@ -114,8 +114,8 @@ export function userSignIn(userEmail, userPassword) {
     }
 }
 
-export function userSignOut(token) {
-    return function (dispatch) {
+export function userSignOut(token:string):any {
+    return function (dispatch:any) {
         fetch(`${apiEndPoint}auth/logout`, {
             method: 'POST',
             mode: 'cors',
