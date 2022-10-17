@@ -39,7 +39,7 @@ export function ForgotPasswordPage() {
                         <EmailInput onChange={onChange} value={email} name={'email'}/>
                     </div>
                     <div className="pb-20">
-                        <Button>Восстановить</Button>
+                        <Button htmlType={"button"}>Восстановить</Button>
                     </div>
                     <p className="text text_type_main-small text_color_inactive">
                         Вспомнили пароль?

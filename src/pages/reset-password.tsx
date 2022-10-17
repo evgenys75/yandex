@@ -51,7 +51,7 @@ export function ResetPasswordPage() {
                         />
                     </div>
                     <div className="pb-20 pt-6">
-                        <Button>Сохранить</Button>
+                        <Button htmlType={"button"}>Сохранить</Button>
                     </div>
                     <p className="text text_type_main-small text_color_inactive">
                         Вспомнили пароль?

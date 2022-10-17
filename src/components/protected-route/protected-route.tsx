@@ -8,7 +8,7 @@ export const ProtectedRoute: FC<RouteProps & { children: React.ReactNode }> = ({
                                                                                    ...rest
                                                                                }) => {
     const location = useLocation();
-    let {getUser, ...auth} = useAuth() as any;
+    let {getUser, ...auth} = useAuth();
     const [isUserLoaded, setUserLoaded] = useState(false);
     const init = async () => {
         await getUser();

@@ -1,12 +1,20 @@
+import React, { FC } from 'react';
 import {useContext, createContext} from 'react';
 import {apiEndPoint} from '../utils/data';
 import {checkResponse} from '../utils/utils'
 import {userSignIn, userSignOut, getUserInfo, userForgotSuccess} from "./actions/user";
 import {useDispatch, useSelector} from "react-redux";
 
-const AuthContext = createContext(undefined);
 
-export function useAuth() {
+
+let AuthContext:any='';
+
+export const ProvideAuth: FC = ({children}) => {
+    const auth = useProvideAuth();
+    AuthContext = createContext(auth);
+    return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
+}
+export function useAuth():any{
     return useContext(AuthContext);
 }
 

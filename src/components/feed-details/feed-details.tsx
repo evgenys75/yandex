@@ -21,7 +21,7 @@ export default function FeedDetails() {
             <ul className={styles.ingredients}>
                 {orderDetails?.ingredients != null &&
                     orderDetails.ingredients.map((element, index: number) => (
-                        <li className={styles.ingredient} key={element}>
+                        <li className={styles.ingredient} key={index}>
                             <div className={styles.ingredient_preview}>
                                 <img
                                     src={data?.find(ingr => ingr._id === element)?.image}

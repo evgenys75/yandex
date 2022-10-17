@@ -110,8 +110,7 @@ export default function BurgerConstructor() {
                     <li className={`pt-10 ${styles.total}`}>
                         <span className={'text text_type_digits-medium pr-10'}>5990<CurrencyIcon
                             type="primary"/></span>
-
-                        <Button type="primary" size="large" onClick={createOrder}>
+                        <Button type="primary" size="large" onClick={createOrder} htmlType={"button"}>
                             Оформить заказ
                         </Button>
                     </li>

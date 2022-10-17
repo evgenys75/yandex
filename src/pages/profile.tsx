@@ -129,8 +129,8 @@ function ProfileSection() {
                     />
                 </div>
                 <div className={`${profileStyle.buttons} pt-10`}>
-                    <Button>Сохранить</Button>
-                    <Button onClick={resetProfile}>Отмена</Button>
+                    <Button htmlType={"button"}>Сохранить</Button>
+                    <Button htmlType={"button"} onClick={resetProfile}>Отмена</Button>
                 </div>
             </div>
         </form>

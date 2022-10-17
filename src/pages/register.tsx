@@ -54,7 +54,7 @@ export function RegisterPage() {
                         />
                     </div>
                     <div className="pb-20 pt-6">
-                        <Button type="primary" size="medium">
+                        <Button htmlType={"button"} type="primary" size="medium">
                             Зарегистрироваться
                         </Button>
                     </div>

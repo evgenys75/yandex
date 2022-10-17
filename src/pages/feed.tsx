@@ -1,17 +1,38 @@
-import {FC} from "react";
+import React, {FC} from "react";
 import {Link, useLocation, useRouteMatch} from 'react-router-dom';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import feedStyle from "./feed.module.css";
 import {TOrder} from '../utils/types';
 import {useSelector} from '../services/hook'
 
+function OrderCardPrice(orderId: any) {
+    const getID = JSON.parse(JSON.stringify(orderId));
+    const {ordersFullList} = useSelector(store => store.feed);
+    const data = useSelector(store => {
+        return store.ingredients.ingredientsFullList;
+    });
+    let total: any = 0;
+    let ingredients = ordersFullList?.find(order => order._id === getID.orderId)?.ingredients;
+    ingredients?.map((element: string) => {
+        total += data?.find(ingredient => ingredient._id === element)?.price;
+    })
+
+    return (
+        <>
+            {total}
+        </>
+    );
+}
 
 export const FeedPage: FC = () => {
 
     const {ordersFullList, doneAllTime, doneToday} = useSelector(store => store.feed);
     const location = useLocation();
     const isUserOrder = useRouteMatch({path: '/profile/orders'});
-
+    const data = useSelector(store => {
+        return store.ingredients.ingredientsFullList;
+    });
+    let totalPrice: number = 0;
     return (
         <>
             <h1 className={`text text_type_main-large mt-10 mb-5 pl-5`}>
@@ -21,7 +42,7 @@ export const FeedPage: FC = () => {
                 <div className={feedStyle.column}>
                     <ul className={feedStyle.list}>
                         {ordersFullList?.map((element: TOrder) => (
-                            <li className={feedStyle.item}>
+                            <li className={feedStyle.item} key={element._id}>
                                 <Link to={{pathname: `/feed/${element._id}`, state: {background: location}}}>
                                     <div className={feedStyle.card}>
                                         <div className={feedStyle.info}>
@@ -32,23 +53,25 @@ export const FeedPage: FC = () => {
                                                 {element.createdAt}
                                             </p>
                                         </div>
-                                        <p className='text text_type_main-medium pr-6 pl-6'>{element.name}</p>
+                                        <p className={`${feedStyle.white} text text_type_main-medium pr-6 pl-6`}>{element.name}</p>
                                         <div className={feedStyle.info}>
                                             <ul className={feedStyle.ingredients}>
                                                 <li className={feedStyle.ingredient}>
                                                     <div className={feedStyle.ingredient_preview}>
-                                                        <img
-                                                            src={`https://code.s3.yandex.net/react/code/bun-02.png`}
-                                                            alt={``}
-                                                        />
-                                                        <span
-                                                            className={`${feedStyle.ingredient_count} text text_type_main-default`}>+1</span>
+                                                        {element.ingredients?.map((element: string) => (
+                                                            <img
+                                                                src={data?.find(ingr => ingr._id === element)?.image}
+                                                                alt={data?.find(ingr => ingr._id === element)?.name}
+                                                            />
+                                                        ))}
                                                     </div>
                                                 </li>
                                             </ul>
 
-                                            <div className={feedStyle.card}>
-                                                <p className='text text_type_digits-default mr-2'>999</p>
+                                            <div className={`${feedStyle.card} ${feedStyle.total}`}>
+                                                <p className='text text_type_digits-default mr-2'>
+                                                    <OrderCardPrice orderId={element._id}/>
+                                                </p>
                                                 <CurrencyIcon type='primary'/>
                                             </div>
                                         </div>
@@ -69,7 +92,7 @@ export const FeedPage: FC = () => {
                                     {ordersFullList?.filter(
                                         (el: TOrder) => el.status ===
                                             'done').map((element) => (
-                                        <li className={'text text_type_digits-default'}>
+                                        <li className={'text text_type_digits-default'} key={element._id}>
                                             {element.number}
                                         </li>
                                     ))}
