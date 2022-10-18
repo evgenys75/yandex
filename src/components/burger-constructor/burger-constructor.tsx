@@ -8,7 +8,7 @@ import styles from './burger-constructor.module.css';
 import {useState} from 'react';
 import OrderDetails from '../order-details/order-details';
 import {Modal} from '../modal/modal';
-import {useDispatch} from 'react-redux';
+import {useDispatch} from '../../services/hook'
 import {useSelector} from '../../services/hook'
 import {useDrop} from 'react-dnd';
 import {

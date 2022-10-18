@@ -6,7 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import pagesStyle from "./pages.module.css";
 import {Link, Redirect} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useSelector} from '../services/hook'
 import {useAuth} from '../services/auth';
 
 export function ResetPasswordPage() {

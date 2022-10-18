@@ -9,7 +9,8 @@ import pagesStyle from "./pages.module.css";
 import profileStyle from "./profile.module.css";
 import {Switch, Route, useHistory} from "react-router-dom";
 import {useAuth} from '../services/auth';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from '../services/hook';
+import {useSelector} from '../services/hook';
 import {updateUserProfile} from "../services/actions/user";
 import {FeedPage} from "./feed";
 

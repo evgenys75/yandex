@@ -7,7 +7,7 @@ import pageStyle from "./pages.module.css";
 import {Link, Redirect} from "react-router-dom";
 import {useAuth} from '../services/auth';
 import {useState} from 'react';
-import {useSelector} from "react-redux";
+import {useSelector} from '../services/hook'
 
 export function ForgotPasswordPage() {
     const state = useSelector((store:any) => store);

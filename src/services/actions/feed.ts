@@ -92,3 +92,10 @@ export type TWSOrderActions = {
     onClose: typeof WS_CONNECTION_CLOSED;
     onOrders: typeof WS_ORDER_GET;
 };
+export const wsOrderActions: TWSOrderActions = {
+    wsInit: WS_CONNECTION_START,
+    onOpen: WS_CONNECTION_SUCCESS,
+    onError: WS_CONNECTION_ERROR,
+    onClose: WS_CONNECTION_CLOSED,
+    onOrders: WS_ORDER_GET,
+};

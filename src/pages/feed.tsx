@@ -1,9 +1,12 @@
-import React, {FC} from "react";
+import React, {FC, useEffect} from 'react';
 import {Link, useLocation, useRouteMatch} from 'react-router-dom';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import feedStyle from "./feed.module.css";
 import {TOrder} from '../utils/types';
-import {useSelector} from '../services/hook'
+import {useDispatch, useSelector} from '../services/hook'
+import {wsConnectionStartAction} from '../services/actions/feed';
+import {WS_URL, WS_URL_ALL} from '../utils/data';
+import {getCookie} from '../utils/utils';
 
 function OrderCardPrice(orderId: any) {
     const getID = JSON.parse(JSON.stringify(orderId));
@@ -14,7 +17,7 @@ function OrderCardPrice(orderId: any) {
     let total: any = 0;
     let ingredients = ordersFullList?.find(order => order._id === getID.orderId)?.ingredients;
     ingredients?.map((element: string) => {
-        total += data?.find(ingredient => ingredient._id === element)?.price;
+        return total += data?.find(ingredient => ingredient._id === element)?.price;
     })
 
     return (
@@ -25,14 +28,25 @@ function OrderCardPrice(orderId: any) {
 }
 
 export const FeedPage: FC = () => {
-
+    const dispatch = useDispatch();
     const {ordersFullList, doneAllTime, doneToday} = useSelector(store => store.feed);
     const location = useLocation();
-    const isUserOrder = useRouteMatch({path: '/profile/orders'});
+
     const data = useSelector(store => {
         return store.ingredients.ingredientsFullList;
     });
-    let totalPrice: number = 0;
+
+    const isUserOrder = useRouteMatch({path: '/profile/orders/'});
+    const token = isUserOrder ? `?token=${getCookie('token')}` : '';
+
+    useEffect(() => {
+        dispatch(
+            isUserOrder
+                ? wsConnectionStartAction(WS_URL + token)
+                : wsConnectionStartAction(WS_URL_ALL)
+        );
+    }, [dispatch, isUserOrder, token]);
+
     return (
         <>
             <h1 className={`text text_type_main-large mt-10 mb-5 pl-5`}>

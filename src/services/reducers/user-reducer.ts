@@ -4,7 +4,16 @@ import {
     USER_FORGOT_SUCCESS
 } from '../actions/user';
 
-const initialState = {
+export type TUserState = {
+    userAuth: boolean,
+    userForgotPasswordSuccess: boolean,
+    userAuthProfile: {
+        email: string,
+        name: string
+    }
+};
+
+const initialState: TUserState = {
     userAuth: false,
     userForgotPasswordSuccess: false,
     userAuthProfile: {
@@ -13,7 +22,7 @@ const initialState = {
     }
 };
 
-export const userReducer = (state = initialState, action:any) => {
+export const userReducer = (state = initialState, action: any): TUserState => {
     switch (action.type) {
         case USER_FORGOT_SUCCESS: {
             return {

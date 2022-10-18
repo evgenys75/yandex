@@ -8,14 +8,14 @@ import {TIngredientWithUniqueId} from '../../utils/types'
 
 export type TUserBurgerState = {
     totalPrice: number,
-    ingredients: { bun: string, filling: Array<TIngredientWithUniqueId> },
+    ingredients: { bun: any, filling: Array<TIngredientWithUniqueId> },
 }
 const initialState: TUserBurgerState = {
     totalPrice: 0,
     ingredients: {bun: '', filling: []},
 };
 
-export const userBurgerReducer = (state = initialState, action:any) => {
+export const userBurgerReducer = (state = initialState, action: any): TUserBurgerState => {
     switch (action.type) {
         case CHANGE_POSITION: {
             const from = state.ingredients.filling.findIndex(

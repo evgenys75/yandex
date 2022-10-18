@@ -1,4 +1,4 @@
-export async function checkResponse(res: any) {
+export async function checkResponse(res: Response) {
     return res.ok ? await res.json() : Promise.reject(
         `res.ok: ${res.ok}, res.status: ${res.status}`);
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import doneImg from '../../images/done.png';
-import {useSelector} from 'react-redux';
+import {useSelector} from '../../services/hook'
 
 export default function OrderDetails() {
     const {orderId} = useSelector((store:any) => store.order);
