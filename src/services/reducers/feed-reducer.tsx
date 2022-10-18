@@ -24,11 +24,12 @@ export const feedReducer = (state = initialState, action: any): TOrderState => {
             };
         }
         case GET_ORDERS: {
+            console.log(action);
             return {
                 ...state,
-                ordersFullList: action.data.orders,
-                doneToday: action.data.totalToday,
-                doneAllTime: action.data.total
+                ordersFullList: action.payload.orders,
+                doneToday: action.payload.totalToday,
+                doneAllTime: action.payload.total
             };
         }
         default: {

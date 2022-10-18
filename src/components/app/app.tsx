@@ -9,14 +9,13 @@ import {useDispatch} from '../../services/hook';
 import {getIngredientsFullList} from '../../services/actions/ingredients';
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
-import {Switch, Route, useHistory, useLocation, useRouteMatch} from "react-router-dom";
+import {Switch, Route, useHistory, useLocation} from "react-router-dom";
 import IngredientDetails from "../ingredient-details/ingredient-details"
 import {Modal} from "../modal/modal";
 import {
     ProfilePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, FeedPage, OrderPage
 } from '../../pages';
 import {ProtectedRoute} from '../protected-route/protected-route';
-import {getOrdersFullList, getOrdersUserList} from "../../services/actions/feed";
 
 
 export default function App() {
@@ -36,17 +35,9 @@ export default function App() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-
-    const isUserOrder = useRouteMatch({path: '/profile/orders'});
-
     useEffect(() => {
         dispatch(getIngredientsFullList());
-        if (isUserOrder) {
-            dispatch(getOrdersUserList());
-        } else {
-            dispatch(getOrdersFullList());
-        }
-    }, [dispatch, isUserOrder]);
+    }, []);
 
     function closeModal() {
         history.goBack();

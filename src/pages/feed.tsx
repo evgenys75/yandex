@@ -30,6 +30,7 @@ function OrderCardPrice(orderId: any) {
 export const FeedPage: FC = () => {
     const dispatch = useDispatch();
     const {ordersFullList, doneAllTime, doneToday} = useSelector(store => store.feed);
+
     const location = useLocation();
 
     const data = useSelector(store => {
@@ -46,6 +47,8 @@ export const FeedPage: FC = () => {
                 : wsConnectionStartAction(WS_URL_ALL)
         );
     }, [dispatch, isUserOrder, token]);
+
+    console.log('feed:',isUserOrder,ordersFullList);
 
     return (
         <>

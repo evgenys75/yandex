@@ -90,12 +90,12 @@ export type TWSOrderActions = {
     onOpen: typeof WS_CONNECTION_SUCCESS;
     onError: typeof WS_CONNECTION_ERROR;
     onClose: typeof WS_CONNECTION_CLOSED;
-    onOrders: typeof WS_ORDER_GET;
+    onOrders: typeof GET_ORDERS;
 };
 export const wsOrderActions: TWSOrderActions = {
     wsInit: WS_CONNECTION_START,
     onOpen: WS_CONNECTION_SUCCESS,
     onError: WS_CONNECTION_ERROR,
     onClose: WS_CONNECTION_CLOSED,
-    onOrders: WS_ORDER_GET,
+    onOrders: GET_ORDERS,
 };
