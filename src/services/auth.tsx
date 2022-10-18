@@ -57,7 +57,7 @@ export function useProvideAuth() {
     const signIn = (email: string, password: string) =>
         dispatch(userSignIn(email, password));
     const getUser = () => {
-        dispatch(getUserInfo(user));
+        getUserInfo(user);
     }
 
     return {

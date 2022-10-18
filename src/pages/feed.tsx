@@ -37,18 +37,19 @@ export const FeedPage: FC = () => {
         return store.ingredients.ingredientsFullList;
     });
 
+
     const isUserOrder = useRouteMatch({path: '/profile/orders/'});
     const token = isUserOrder ? `?token=${getCookie('token')}` : '';
 
-    useEffect(() => {
-        dispatch(
-            isUserOrder
-                ? wsConnectionStartAction(WS_URL + token)
-                : wsConnectionStartAction(WS_URL_ALL)
-        );
-    }, [dispatch, isUserOrder, token]);
+        useEffect(() => {
+            dispatch(
+                isUserOrder
+                    ? wsConnectionStartAction(WS_URL + token)
+                    : wsConnectionStartAction(WS_URL_ALL)
+            );
+        }, [dispatch, isUserOrder, token]);
 
-    console.log('feed:',isUserOrder,ordersFullList);
+
 
     return (
         <>
