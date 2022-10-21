@@ -54,13 +54,13 @@ export default function BurgerConstructor() {
         setIsOpen(false);
     };
     const history = useHistory();
-    const authUser = useSelector((store: any) => store.user.userAuth);
+    const authUser = useSelector(store => store.user.userAuth);
     const createOrder = () => {
         if (!authUser) {
             return history.replace("/login");
         } else {
             const orderRequest = `{"ingredients": ["${bunIngredient?._id}","${bunIngredient?._id}"]}`;
-            dispatch(sendOrder(orderRequest) as any);
+            dispatch(sendOrder(orderRequest));
             setIsOpen(true);
         }
     };

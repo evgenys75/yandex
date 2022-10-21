@@ -1,8 +1,8 @@
 import {
-    SET_TOTAL_PRICE,
     ADD_INGREDIENT_TO_BURGER,
     DELETE_INGREDIENT_FROM_BURGER,
     CHANGE_POSITION,
+    TUserBurgerActions
 } from '../actions/user-burger';
 import {TIngredientWithUniqueId} from '../../utils/types'
 
@@ -15,7 +15,7 @@ const initialState: TUserBurgerState = {
     ingredients: {bun: '', filling: []},
 };
 
-export const userBurgerReducer = (state = initialState, action: any): TUserBurgerState => {
+export const userBurgerReducer = (state = initialState, action: TUserBurgerActions): TUserBurgerState => {
     switch (action.type) {
         case CHANGE_POSITION: {
             const from = state.ingredients.filling.findIndex(
@@ -34,9 +34,9 @@ export const userBurgerReducer = (state = initialState, action: any): TUserBurge
                 },
             };
         }
-        case SET_TOTAL_PRICE: {
-            return state;
-        }
+        // case SET_TOTAL_PRICE: {
+        //     return state;
+        // }
         case ADD_INGREDIENT_TO_BURGER: {
             const item = action.payload;
             const itemType = action.payload.type;

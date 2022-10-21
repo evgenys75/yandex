@@ -1,10 +1,10 @@
-import { applyMiddleware, createStore } from 'redux';
+import {applyMiddleware, createStore} from 'redux';
 import thunk from 'redux-thunk';
-import { rootReducer } from './reducers';
-import { socketMiddleware } from './middleware';
-import { compose } from 'redux';
+import {rootReducer} from './reducers';
+import {socketMiddleware} from './middleware';
+import {compose} from 'redux';
 import {WS_URL} from '../utils/data'
-import { wsOrderActions } from './actions/feed';
+import {wsOrderActions} from './actions/feed';
 
 declare global {
     interface Window {

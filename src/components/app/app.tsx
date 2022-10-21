@@ -9,13 +9,16 @@ import {useDispatch} from '../../services/hook';
 import {getIngredientsFullList} from '../../services/actions/ingredients';
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
-import {Switch, Route, useHistory, useLocation} from "react-router-dom";
+import {Switch, Route, useHistory, useLocation, useRouteMatch} from "react-router-dom";
 import IngredientDetails from "../ingredient-details/ingredient-details"
 import {Modal} from "../modal/modal";
 import {
-    ProfilePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, FeedPage, OrderPage
+    ProfilePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, FeedPage
 } from '../../pages';
 import {ProtectedRoute} from '../protected-route/protected-route';
+import {getCookie} from "../../utils/utils";
+import {wsConnectionStartAction} from "../../services/actions/feed";
+import {WS_URL, WS_URL_ALL} from "../../utils/data";
 
 
 export default function App() {
@@ -43,8 +46,20 @@ export default function App() {
         history.goBack();
     }
 
+    const isUserOrder = useRouteMatch({path: '/profile/orders/'});
+    const token = isUserOrder ? `?token=${getCookie('token')}` : '';
+
+    useEffect(() => {
+        dispatch(
+            isUserOrder
+                ? wsConnectionStartAction(WS_URL + token)
+                : wsConnectionStartAction(WS_URL_ALL)
+        );
+    }, [dispatch, isUserOrder, token]);
+
     return (<>
         <AppHeader/>
+
         <Switch location={background || location}>
             <Route path="/login" exact={true}>
                 <LoginPage/>
@@ -81,7 +96,7 @@ export default function App() {
                 <FeedPage/>
             </Route>
             <Route path='/feed/:id' exact={true}>
-                <OrderPage/>
+                <FeedDetails/>
             </Route>
         </Switch>
         {background && (

@@ -20,7 +20,7 @@ export function useAuth(): any {
 export function useProvideAuth() {
 
     const dispatch = useDispatch();
-    const user = useSelector((store: any) => {
+    const user = useSelector(store => {
         return store.user;
     });
     const forgot = async (email: string) => {
@@ -57,7 +57,7 @@ export function useProvideAuth() {
     const signIn = (email: string, password: string) =>
         dispatch(userSignIn(email, password));
     const getUser = () => {
-        getUserInfo(user);
+        getUserInfo();
     }
 
     return {

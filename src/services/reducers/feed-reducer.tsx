@@ -1,22 +1,23 @@
 import {
     GET_ORDERS,
-    WS_CONNECTION_SUCCESS
+    WS_CONNECTION_SUCCESS,
+    TFeedActions
 } from '../actions/feed';
 import {TOrder} from '../../utils/types';
 
-export type TOrderState = {
+export type TFeedState = {
     ordersFullList: Array<TOrder>,
     doneToday: number,
     doneAllTime: number
 };
 
-const initialState: TOrderState = {
+const initialState:TFeedState = {
     ordersFullList: [],
     doneToday: 0,
     doneAllTime: 0
 };
 
-export const feedReducer = (state = initialState, action: any): TOrderState => {
+export const feedReducer = (state = initialState, action: TFeedActions): TFeedState => {
     switch (action.type) {
         case WS_CONNECTION_SUCCESS: {
             return {
@@ -24,7 +25,6 @@ export const feedReducer = (state = initialState, action: any): TOrderState => {
             };
         }
         case GET_ORDERS: {
-            console.log(action);
             return {
                 ...state,
                 ordersFullList: action.payload.orders,

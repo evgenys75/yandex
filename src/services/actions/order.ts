@@ -1,10 +1,21 @@
 import {apiEndPoint} from '../../utils/data';
 import {checkResponse} from '../../utils/utils'
 import {getCookie} from '../../utils/utils';
+import {AppDispatch} from '../../services/types';
 
 export const CREATE_ORDER: 'CREATE_ORDER' = 'CREATE_ORDER';
-export const sendOrder = (orderRequest:string) => {
-    return (dispatch:any) => {
+
+export interface ICreateOrderAction {
+    readonly type: typeof CREATE_ORDER;
+    readonly data: any;
+}
+
+export type TOrderActions =
+    | ICreateOrderAction
+    ;
+
+export const sendOrder = (orderRequest: string) => {
+    return (dispatch: AppDispatch) => {
         fetch(`${apiEndPoint}orders`, {
             headers: {
                 'Accept': 'application/json, text/plain, */*',

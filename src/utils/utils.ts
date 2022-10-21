@@ -1,3 +1,24 @@
+export const getOrderDate = (dateOrder: string): string => {
+    const date = new Date(dateOrder).setHours(0, 0, 0, 0);
+    const currentDate = new Date().setHours(0, 0, 0, 0);
+    let day = new Date(date).toLocaleDateString("ru-RU", {});
+
+    if (date === currentDate) {
+        day = "Сегодня";
+    } else if (currentDate - date === 24 * 60 * 60 * 1000) {
+        day = "Вчера";
+    } else if (currentDate - date === -24 * 60 * 60 * 1000) {
+        day = "Завтра";
+    }
+    const time = new Date(dateOrder).toLocaleTimeString("ru-Ru", {
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZoneName: "short",
+    });
+
+    return `${day}, ${time}`;
+}
+
 export async function checkResponse(res: Response) {
     return res.ok ? await res.json() : Promise.reject(
         `res.ok: ${res.ok}, res.status: ${res.status}`);

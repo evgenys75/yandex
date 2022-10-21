@@ -12,12 +12,16 @@ import {Link, useLocation} from "react-router-dom";
 export default function BurgerIngredients() {
     const dispatch = useDispatch();
     const location = useLocation();
-    const ingredientsFullListObjects = useSelector((store: any) => store.ingredients);
+
+    /*
+    const ingredientsFullListObjects = useSelector(store => store.ingredients);
     const ingredientsFullListArray = Object.keys(ingredientsFullListObjects).map(function (index) {
         let ingredientObject = ingredientsFullListObjects[index];
         return ingredientObject;
     });
     const ingredientsFullList = ingredientsFullListArray[0];
+    */
+    const ingredientsFullList = useSelector(store => store.ingredients.ingredientsFullList);
     const {ingredients: userBurgerIngredients} = useSelector(
         store => store.userBurger);
     const [state, setIsOpen] = useState({

@@ -80,7 +80,7 @@ export function ProfilePage() {
 
 function ProfileSection() {
     const dispatch = useDispatch();
-    const state = useSelector((store: any) => store);
+    const state = useSelector(store => store);
     const userProfile = state.user.userAuthProfile;
     React.useEffect(() => {
         setName(userProfile.name);
@@ -92,13 +92,13 @@ function ProfileSection() {
 
     function updateProfile(e: { preventDefault: () => void; }) {
         e.preventDefault();
-        dispatch(updateUserProfile(email, password, name) as any);
+        dispatch(updateUserProfile(email, password, name));
     }
 
     function resetProfile() {
         setName(state.user.userAuthProfile.name);
         setEmail(state.user.userAuthProfile.email);
-        setPassword(state.user.userAuthProfile.password);
+        //setPassword(state.user.userAuthProfile.password);
     }
 
     return (

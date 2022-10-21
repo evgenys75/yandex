@@ -1,5 +1,6 @@
 import {
     CREATE_ORDER,
+    TOrderActions
 } from '../actions/order';
 
 export type TOrderState = {
@@ -10,10 +11,9 @@ const initialState: TOrderState = {
     orderId: null,
 };
 
-export const orderReducer = (state = initialState, action: any): TOrderState => {
+export const orderReducer = (state = initialState, action: TOrderActions): TOrderState => {
     switch (action.type) {
         case CREATE_ORDER: {
-            console.log(action);
             return {...state, orderId: action.data.number};
         }
         default: {

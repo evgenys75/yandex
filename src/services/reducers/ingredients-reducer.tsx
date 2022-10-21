@@ -1,6 +1,7 @@
 import {
     GET_INGREDIENTS,
     SET_INGREDIENT_DETAILS,
+    TIngredientsActions
 } from '../actions/ingredients';
 import {TIngredient} from '../../utils/types';
 
@@ -14,7 +15,7 @@ const initialState: TIngredientState = {
     ingredientDetails: null,
 };
 
-export const ingredientsReducer = (state = initialState, action: any):TIngredientState => {
+export const ingredientsReducer = (state = initialState, action: TIngredientsActions): TIngredientState => {
     switch (action.type) {
         case GET_INGREDIENTS: {
             return {...state, ingredientsFullList: action.data.data};

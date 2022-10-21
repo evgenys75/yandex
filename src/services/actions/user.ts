@@ -1,21 +1,45 @@
 import {apiEndPoint} from '../../utils/data';
 import {checkResponse} from '../../utils/utils'
 import {setCookie, deleteCookie, getCookie} from '../../utils/utils'
-import { TUser } from '../../utils/types';
+import {TUser} from '../../utils/types';
+import {AppDispatch} from '../../services/types';
+
+
 export const USER_AUTHORIZATION: 'USER_AUTHORIZATION' = 'USER_AUTHORIZATION';
 export const USER_UPDATE: 'USER_UPDATE' = 'USER_UPDATE';
 export const USER_FORGOT_SUCCESS: 'USER_FORGOT_SUCCESS' = 'USER_FORGOT_SUCCESS';
 
-export function userForgotSuccess():any {
-    return function (dispatch:any) {
+export interface IUserForgotSuccessAction {
+    readonly type: typeof USER_FORGOT_SUCCESS;
+}
+
+export interface IUserAuthorizationAction {
+    readonly type: typeof USER_AUTHORIZATION;
+    readonly payload: any;
+}
+
+export interface IUserUpdateAction {
+    readonly type: typeof USER_UPDATE;
+    readonly payload: any;
+}
+
+
+export type TUserActions =
+    | IUserForgotSuccessAction
+    | IUserAuthorizationAction
+    | IUserUpdateAction
+    ;
+
+export function userForgotSuccess() {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: USER_FORGOT_SUCCESS
         });
     }
 }
 
-export function getUserInfo(user:any):any {
-    return (dispatch:any) => {
+export function getUserInfo() {
+    return (dispatch: AppDispatch) => {
         fetch(`${apiEndPoint}auth/user`, {
             method: 'GET',
             mode: 'cors',
@@ -42,8 +66,8 @@ export function getUserInfo(user:any):any {
     }
 }
 
-export function updateUserProfile(email:string, password:string, name:string) {
-    return (dispatch:any) => {
+export function updateUserProfile(email: string, password: string, name: string) {
+    return (dispatch: AppDispatch) => {
         fetch(`${apiEndPoint}auth/user`, {
             method: 'PATCH',
             mode: 'cors',
@@ -75,8 +99,8 @@ export function updateUserProfile(email:string, password:string, name:string) {
     }
 }
 
-export function userSignIn(userEmail:string, userPassword:string):any {
-    return (dispatch:any) => {
+export function userSignIn(userEmail: string, userPassword: string) {
+    return (dispatch: AppDispatch) => {
         fetch(`${apiEndPoint}auth/login`, {
             method: 'POST',
             mode: 'cors',
@@ -114,8 +138,8 @@ export function userSignIn(userEmail:string, userPassword:string):any {
     }
 }
 
-export function userSignOut(token:string):any {
-    return function (dispatch:any) {
+export function userSignOut(token: string) {
+    return function (dispatch: AppDispatch) {
         fetch(`${apiEndPoint}auth/logout`, {
             method: 'POST',
             mode: 'cors',
@@ -138,6 +162,7 @@ export function userSignOut(token:string):any {
         localStorage.removeItem('password');
     }
 }
+
 export const LOGIN_REQUEST: 'LOGIN_REQUEST' = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS: 'LOGIN_SUCCESS' = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED: 'LOGIN_FAILED' = 'LOGIN_FAILED';

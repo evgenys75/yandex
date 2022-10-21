@@ -1,7 +1,8 @@
 import {WS_URL_ALL, WS_URL} from '../../utils/data';
 import {getCookie} from '../../utils/utils';
 import {TOrder} from "../../utils/types";
-
+import {AppThunk} from "../types/index";
+import {AppDispatch} from '../../services/types';
 export const FEED_REQUEST: 'FEED_REQUEST' = 'FEED_REQUEST';
 export const GET_ORDERS: 'GET_ORDERS' = 'GET_ORDERS';
 export const GET_USER_ORDERS: 'GET_USER_ORDERS' = 'GET_USER_ORDERS';
@@ -12,7 +13,8 @@ export const WS_CONNECTION_CLOSED: 'WS_CONNECTION_CLOSED' = 'WS_CONNECTION_CLOSE
 export const WS_ORDER_GET: 'WS_ORDER_GET' = 'WS_ORDER_GET';
 
 export interface IGetOrdersAction {
-    readonly type: typeof FEED_REQUEST;
+    readonly type: typeof GET_ORDERS;
+    readonly payload: any;
 }
 
 export interface IWSConnectionStartAction {
@@ -37,7 +39,7 @@ export interface IWSOrderGetAction {
     readonly payload: TOrder;
 }
 
-export type TShopsActions =
+export type TFeedActions =
     | IGetOrdersAction
     | IWSConnectionStartAction
     | IWSConnectionSuccessAction
@@ -46,21 +48,22 @@ export type TShopsActions =
     | IWSOrderGetAction;
 
 export const getOrdersAction = (): IGetOrdersAction => ({
-    type: FEED_REQUEST
+    type: GET_ORDERS,
+    payload: null
 });
-export const getOrdersFullList: any = () => (dispatch: any) => {
+export const getOrdersFullList: AppThunk = () => (dispatch: AppDispatch) => {
     dispatch(getOrdersAction());
     const ws = new WebSocket(WS_URL_ALL);
     ws.onmessage = (event: MessageEvent) => {
-        dispatch({type: GET_ORDERS, data: JSON.parse(event.data)});
+        dispatch({type: GET_ORDERS, payload: JSON.parse(event.data)});
     }
 }
-export const getOrdersUserList: any = () => (dispatch: any) => {
+export const getOrdersUserList: AppThunk = () => (dispatch: AppDispatch) => {
     dispatch(getOrdersAction());
     const token = `?token=${getCookie('token')}`;
     const ws = new WebSocket(WS_URL + token);
     ws.onmessage = (event: MessageEvent) => {
-        dispatch({type: GET_ORDERS, data: JSON.parse(event.data)});
+        dispatch({type: GET_ORDERS, payload: JSON.parse(event.data)});
     }
 }
 export const wsConnectionStartAction = (payload: string): IWSConnectionStartAction => ({

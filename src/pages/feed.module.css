@@ -55,6 +55,7 @@ ul {
     display: flex;
     max-width: 436px;
     flex-wrap: wrap;
+
 }
 
 .ingredient_preview {
@@ -73,7 +74,7 @@ ul {
     position: relative;
     width: 66px;
     height: 66px;
-    margin-left: -16px;
+    margin-left: -26px;
     padding-left: 16px;
 }
 
@@ -92,6 +93,7 @@ ul {
 
 .ingredients img {
     height: 56px;
+    margin-left: -22px;
 }
 
 .ingredient_count {

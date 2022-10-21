@@ -1,12 +1,10 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC} from 'react';
 import {Link, useLocation, useRouteMatch} from 'react-router-dom';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import feedStyle from "./feed.module.css";
 import {TOrder} from '../utils/types';
-import {useDispatch, useSelector} from '../services/hook'
-import {wsConnectionStartAction} from '../services/actions/feed';
-import {WS_URL, WS_URL_ALL} from '../utils/data';
-import {getCookie} from '../utils/utils';
+import {useSelector} from '../services/hook'
+import {getOrderDate} from '../utils/utils';
 
 function OrderCardPrice(orderId: any) {
     const getID = JSON.parse(JSON.stringify(orderId));
@@ -28,7 +26,6 @@ function OrderCardPrice(orderId: any) {
 }
 
 export const FeedPage: FC = () => {
-    const dispatch = useDispatch();
     const {ordersFullList, doneAllTime, doneToday} = useSelector(store => store.feed);
 
     const location = useLocation();
@@ -36,21 +33,7 @@ export const FeedPage: FC = () => {
     const data = useSelector(store => {
         return store.ingredients.ingredientsFullList;
     });
-
-
     const isUserOrder = useRouteMatch({path: '/profile/orders/'});
-    const token = isUserOrder ? `?token=${getCookie('token')}` : '';
-
-        useEffect(() => {
-            dispatch(
-                isUserOrder
-                    ? wsConnectionStartAction(WS_URL + token)
-                    : wsConnectionStartAction(WS_URL_ALL)
-            );
-        }, [dispatch, isUserOrder, token]);
-
-
-
     return (
         <>
             <h1 className={`text text_type_main-large mt-10 mb-5 pl-5`}>
@@ -68,22 +51,24 @@ export const FeedPage: FC = () => {
                                                 #{element.number}
                                             </p>
                                             <p className='text text_type_main-default text_color_inactive'>
-                                                {element.createdAt}
+                                                {getOrderDate(element.createdAt)}
                                             </p>
                                         </div>
                                         <p className={`${feedStyle.white} text text_type_main-medium pr-6 pl-6`}>{element.name}</p>
                                         <div className={feedStyle.info}>
                                             <ul className={feedStyle.ingredients}>
-                                                <li className={feedStyle.ingredient}>
-                                                    <div className={feedStyle.ingredient_preview}>
-                                                        {element.ingredients?.map((element: string) => (
+                                                {element.ingredients?.map((element: string, index) => (
+                                                    <li className={feedStyle.ingredient} style={{zIndex: 100 - index}}>
+                                                        <div className={feedStyle.ingredient_preview}>
+
                                                             <img
                                                                 src={data?.find(ingr => ingr._id === element)?.image}
                                                                 alt={data?.find(ingr => ingr._id === element)?.name}
                                                             />
-                                                        ))}
-                                                    </div>
-                                                </li>
+
+                                                        </div>
+                                                    </li>
+                                                ))}
                                             </ul>
 
                                             <div className={`${feedStyle.card} ${feedStyle.total}`}>
