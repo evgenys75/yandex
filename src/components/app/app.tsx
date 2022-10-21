@@ -46,16 +46,7 @@ export default function App() {
         history.goBack();
     }
 
-    const isUserOrder = useRouteMatch({path: '/profile/orders/'});
-    const token = isUserOrder ? `?token=${getCookie('token')}` : '';
 
-    useEffect(() => {
-        dispatch(
-            isUserOrder
-                ? wsConnectionStartAction(WS_URL + token)
-                : wsConnectionStartAction(WS_URL_ALL)
-        );
-    }, [dispatch, isUserOrder, token]);
 
     return (<>
         <AppHeader/>

@@ -1,10 +1,12 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {Link, useLocation, useRouteMatch} from 'react-router-dom';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import feedStyle from "./feed.module.css";
 import {TOrder} from '../utils/types';
-import {useSelector} from '../services/hook'
-import {getOrderDate} from '../utils/utils';
+import {useSelector, useDispatch} from '../services/hook'
+import {getCookie, getOrderDate} from '../utils/utils';
+import {wsConnectionStartAction,wsConnectionClosedAction} from "../services/actions/feed";
+import {WS_URL, WS_URL_ALL} from "../utils/data";
 
 function OrderCardPrice(orderId: any) {
     const getID = JSON.parse(JSON.stringify(orderId));
@@ -29,11 +31,23 @@ export const FeedPage: FC = () => {
     const {ordersFullList, doneAllTime, doneToday} = useSelector(store => store.feed);
 
     const location = useLocation();
-
+    const dispatch = useDispatch();
     const data = useSelector(store => {
         return store.ingredients.ingredientsFullList;
     });
     const isUserOrder = useRouteMatch({path: '/profile/orders/'});
+    const token = isUserOrder ? `?token=${getCookie('token')}` : '';
+
+    useEffect(() => {
+        dispatch(
+            isUserOrder
+                ? wsConnectionStartAction(WS_URL + token)
+                : wsConnectionStartAction(WS_URL_ALL)
+        );
+        return () => {
+            dispatch(wsConnectionClosedAction);
+        };
+    }, [dispatch]);
     return (
         <>
             <h1 className={`text text_type_main-large mt-10 mb-5 pl-5`}>
@@ -58,7 +72,7 @@ export const FeedPage: FC = () => {
                                         <div className={feedStyle.info}>
                                             <ul className={feedStyle.ingredients}>
                                                 {element.ingredients?.map((element: string, index) => (
-                                                    <li className={feedStyle.ingredient} style={{zIndex: 100 - index}}>
+                                                    <li className={feedStyle.ingredient} style={{zIndex: 100 - index}} key={index}>
                                                         <div className={feedStyle.ingredient_preview}>
 
                                                             <img
