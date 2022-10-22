@@ -12,7 +12,7 @@ import {useAuth} from '../services/auth';
 import {useDispatch} from '../services/hook';
 import {useSelector} from '../services/hook';
 import {updateUserProfile} from "../services/actions/user";
-import {FeedPage} from "./feed";
+import {FeedContainer} from "../components/feed-container/feed-container";
 
 export function ProfilePage() {
     const auth: any = useAuth();
@@ -66,7 +66,7 @@ export function ProfilePage() {
 
                     <Switch>
                         <Route path='/profile/orders' exact={true}>
-                            <FeedPage/>
+                            <FeedContainer/>
                         </Route>
                         <Route path="/profile" exact={true}>
                             <ProfileSection/>
@@ -98,7 +98,6 @@ function ProfileSection() {
     function resetProfile() {
         setName(state.user.userAuthProfile.name);
         setEmail(state.user.userAuthProfile.email);
-        //setPassword(state.user.userAuthProfile.password);
     }
 
     return (

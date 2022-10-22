@@ -9,12 +9,8 @@ export default function FeedDetails() {
     const data = useSelector(store => {
         return store.ingredients.ingredientsFullList;
     });
-
     const uniqueIds: Array<string> = [];
-
     const {ordersFullList} = useSelector(store => store.feed);
-    console.log(ordersFullList);
-
     const orderDetails = ordersFullList.find(el => el._id === getID.id);
     const unique = orderDetails?.ingredients?.filter(element => {
         const isDuplicate = uniqueIds.includes(element);

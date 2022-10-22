@@ -10,7 +10,7 @@ import {useState} from 'react';
 import {useSelector} from '../services/hook'
 
 export function ForgotPasswordPage() {
-    const state = useSelector((store:any) => store);
+    const state = useSelector(store => store);
     let auth:any = useAuth();
     const [email, setEmail] = useState('');
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {

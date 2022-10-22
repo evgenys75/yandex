@@ -9,17 +9,14 @@ import {useDispatch} from '../../services/hook';
 import {getIngredientsFullList} from '../../services/actions/ingredients';
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
-import {Switch, Route, useHistory, useLocation, useRouteMatch} from "react-router-dom";
+import {Switch, Route, useHistory, useLocation} from "react-router-dom";
 import IngredientDetails from "../ingredient-details/ingredient-details"
 import {Modal} from "../modal/modal";
 import {
-    ProfilePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, FeedPage
+    ProfilePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage
 } from '../../pages';
 import {ProtectedRoute} from '../protected-route/protected-route';
-import {getCookie} from "../../utils/utils";
-import {wsConnectionStartAction} from "../../services/actions/feed";
-import {WS_URL, WS_URL_ALL} from "../../utils/data";
-
+import {FeedContainer} from '../feed-container/feed-container';
 
 export default function App() {
     type TLocation = {
@@ -45,7 +42,6 @@ export default function App() {
     function closeModal() {
         history.goBack();
     }
-
 
 
     return (<>
@@ -83,11 +79,8 @@ export default function App() {
 
             </Route>
 
-            <Route path='/feed' exact={true}>
-                <FeedPage/>
-            </Route>
-            <Route path='/feed/:id' exact={true}>
-                <FeedDetails/>
+            <Route path='/feed'>
+                <FeedContainer/>
             </Route>
         </Switch>
         {background && (

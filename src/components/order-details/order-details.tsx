@@ -3,10 +3,10 @@ import doneImg from '../../images/done.png';
 import {useSelector} from '../../services/hook'
 
 export default function OrderDetails() {
-    const {orderId} = useSelector((store:any) => store.order);
+    const {orderId} = useSelector(store => store.order);
     return (
-        orderId &&
         <>
+        orderId &&
         <span
             className={'pl-30 pr-30 pt-30 pb-8 text text_type_digits-large'}>{orderId}</span>
             <span

@@ -28,7 +28,7 @@ export default function BurgerConstructor() {
         drop(item: TIngredient) {
             const dragElementId = Object.values(item)[0];
             const type = ingredientsFullList.filter(
-                (el: any) => el._id === dragElementId)[0].type;
+                el => el._id === dragElementId)[0].type;
             item.type = type;
             dispatch(addIngredientToBurger(item));
         },
@@ -42,7 +42,7 @@ export default function BurgerConstructor() {
     const [isOpen, setIsOpen] = useState(false);
     const bunIngredient = userBurgerIngredients.bun != null
         ? ingredientsFullList.filter(
-            (el: any) => el._id === userBurgerIngredients.bun._id)[0]
+            el => el._id === userBurgerIngredients.bun._id)[0]
         : null;
     const mainIngredient = userBurgerIngredients.filling != null
         ? userBurgerIngredients.filling
@@ -87,10 +87,10 @@ export default function BurgerConstructor() {
                                                       (el: TIngredient) => el._id ===
                                                           element._id)[0].name}
                                                   price={ingredientsFullList.filter(
-                                                      (el: any) => el._id ===
+                                                      el => el._id ===
                                                           element._id)[0].price}
                                                   thumbnail={ingredientsFullList.filter(
-                                                      (el: any) => el._id ===
+                                                      el => el._id ===
                                                           element._id)[0].image}/>
                         </li>
                     ))

@@ -82,7 +82,7 @@ export default function BurgerIngredients() {
                     <li ref={refBun}
                         className={`${styles.sectionTitle} p-10 text text_type_main-medium`}>Булки
                     </li>
-                    {ingredientsFullList.filter((el: any) => el.type === 'bun').map((element: any) => (
+                    {ingredientsFullList.filter(el => el.type === 'bun').map((element: any) => (
                         <li key={element._id}
                             className={`pt-6 pb-10`}
                         >
@@ -107,7 +107,7 @@ export default function BurgerIngredients() {
                     <li ref={refSauce}
                         className={`${styles.sectionTitle} p-10 text text_type_main-medium`}>Соусы
                     </li>
-                    {ingredientsFullList.filter((el: any) => el.type === 'sauce').map((element: any) => (
+                    {ingredientsFullList.filter(el => el.type === 'sauce').map((element: any) => (
                         <li key={element._id}
                             className={`pt-6 pb-10`}>
                             <Link
@@ -130,7 +130,7 @@ export default function BurgerIngredients() {
                     <li ref={refMain}
                         className={`${styles.sectionTitle} p-10 text text_type_main-medium`}>Ингридиенты
                     </li>
-                    {ingredientsFullList.filter((el: any) => el.type === 'main').map((element: any) => (
+                    {ingredientsFullList.filter(el => el.type === 'main').map((element: any) => (
                         <li key={element._id}
                             className={`pt-6 pb-10`}>
                             <Link

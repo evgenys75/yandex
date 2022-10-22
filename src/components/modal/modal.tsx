@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from "react";
+import React, {FC, ReactNode} from "react";
 import ReactDOM from 'react-dom';
 import styles from './modal.module.css';
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
@@ -8,10 +8,11 @@ interface IModal {
     children: ReactNode;
     onClose: () => void;
 }
+
 const modalRoot = document.getElementById('modal-root');
-export const Modal: FC<IModal> =({onClose, children}) => {
+export const Modal: FC<IModal> = ({onClose, children}) => {
     React.useEffect(() => {
-        const closeOnEsc = (e: {key: string}) => {
+        const closeOnEsc = (e: KeyboardEvent) => {
             if (e.key === 'Escape') {
                 onClose();
             }
@@ -30,5 +31,5 @@ export const Modal: FC<IModal> =({onClose, children}) => {
             </div>
             <ModalOverlay onClose={onClose}/>
         </>
-    ), modalRoot): null;
+    ), modalRoot) : null;
 }

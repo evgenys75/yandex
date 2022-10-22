@@ -10,7 +10,7 @@ import {useSelector} from '../services/hook'
 import {useAuth} from '../services/auth';
 
 export function ResetPasswordPage() {
-    const state = useSelector((store:any) => store);
+    const state = useSelector(store => store);
     let auth:any = useAuth();
     const [pass, setValuePass] = React.useState("");
     const [token, setValueToken] = React.useState("");
