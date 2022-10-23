@@ -12,7 +12,9 @@ export default function FeedDetails() {
     const uniqueIds: Array<string> = [];
     const {ordersFullList} = useSelector(store => store.feed);
     const orderDetails = ordersFullList.find(el => el._id === getID.id);
+    let totalPrice:number = 0;
     const unique = orderDetails?.ingredients?.filter(element => {
+        totalPrice += data?.filter(ingr => ingr._id === element)[0].price;
         const isDuplicate = uniqueIds.includes(element);
         if (!isDuplicate) {
             uniqueIds.push(element);
@@ -51,7 +53,7 @@ export default function FeedDetails() {
                 <p className='text text_type_main-default text_color_inactive'>
                     {orderDetails?.createdAt}
                 </p>
-                {`1560`}
+                {totalPrice}
             </div>
         </div>
     );

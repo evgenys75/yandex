@@ -32,6 +32,7 @@ export const FeedPage: FC = () => {
     const data = useSelector(store => {
         return store.ingredients.ingredientsFullList;
     });
+    const pageUrl = isUserOrder ? '/profile/orders/' : '/feed/';
     return (
         <>
             {!isUserOrder &&
@@ -44,7 +45,7 @@ export const FeedPage: FC = () => {
                     <ul className={feedStyle.list}>
                         {ordersFullList?.map((element: TOrder) => (
                             <li className={feedStyle.item} key={element._id}>
-                                <Link to={{pathname: `/feed/${element._id}`, state: {background: location}}}>
+                                <Link to={{pathname: `${pageUrl}${element._id}`, state: {background: location}}}>
                                     <div className={feedStyle.card}>
                                         <div className={feedStyle.info}>
                                             <p className={`text text_type_digits-default pb-6`}>

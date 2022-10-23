@@ -74,11 +74,8 @@ export default function App() {
             <Route path="/ingredients/:id" exact={true}>
                 <IngredientDetails/>
             </Route>
-
             <Route path='/ingredients/:id'>
-
             </Route>
-
             <Route path='/feed'>
                 <FeedContainer/>
             </Route>
@@ -93,6 +90,17 @@ export default function App() {
                     <FeedDetails/>
                 </Modal>
             </Route>
+        )}
+        {background && (
+            <ProtectedRoute path='/profile/orders/:id'>
+                <Modal
+                    onClose={() => {
+                        closeModal();
+                    }}
+                >
+                    <FeedDetails/>
+                </Modal>
+            </ProtectedRoute>
         )}
         {background && (
             <Route path="/ingredients/:id" exact={true}>

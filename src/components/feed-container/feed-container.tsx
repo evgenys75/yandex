@@ -6,6 +6,8 @@ import {useDispatch} from "../../services/hook";
 import {getCookie} from "../../utils/utils";
 import {wsConnectionClosedAction, wsConnectionStartAction} from "../../services/actions/feed";
 import {WS_URL, WS_URL_ALL} from "../../utils/data";
+import {Modal} from "../modal/modal";
+import {ProtectedRoute} from "../protected-route/protected-route";
 
 export function FeedContainer() {
 
@@ -34,6 +36,9 @@ export function FeedContainer() {
             <Route path="/feed/:id" exact={true}>
                 <FeedDetails/>
             </Route>
+            <ProtectedRoute path="/profile/orders/:id" exact={true}>
+                <FeedDetails/>
+            </ProtectedRoute>
         </Switch>
     );
 }

@@ -63,15 +63,15 @@ export function ProfilePage() {
                             </li>
                         </ul>
                     </nav>
-
                     <Switch>
-                        <Route path='/profile/orders' exact={true}>
+                        <Route path='/profile/orders'>
                             <FeedContainer/>
                         </Route>
                         <Route path="/profile" exact={true}>
                             <ProfileSection/>
                         </Route>
                     </Switch>
+
                 </div>
             </div>
         </section>
