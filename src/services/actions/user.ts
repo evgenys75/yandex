@@ -151,15 +151,15 @@ export function userSignOut(token: string) {
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
             body: JSON.stringify({'token': token})
+        }).then(checkResponse).then((data) => {
+            deleteCookie('token');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('password');
         })
-            .then(checkResponse)
-            .then(data => data)
             .catch(e => {
                 console.log(e.type);
             })
-        deleteCookie('token');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('password');
+
     }
 }
 

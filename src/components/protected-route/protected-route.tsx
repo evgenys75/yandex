@@ -2,6 +2,8 @@ import React, {FC} from "react";
 import {useAuth} from '../../services/auth';
 import {Route, Redirect, RouteProps, useLocation} from 'react-router-dom';
 import {useEffect, useState} from 'react';
+import {getCookie} from "../../utils/utils";
+import {useSelector} from "../../services/hook";
 
 export const ProtectedRoute: FC<RouteProps & { children: React.ReactNode }> = ({
                                                                                    children,
@@ -22,12 +24,11 @@ export const ProtectedRoute: FC<RouteProps & { children: React.ReactNode }> = ({
     if (!isUserLoaded) {
         return null;
     }
-
     return (
         <Route
             {...rest}
             render={() =>
-                auth.user.userAuth ? (
+                getCookie('token') ? (
                     children
                 ) : (
                     <Redirect

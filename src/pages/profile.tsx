@@ -13,6 +13,7 @@ import {useDispatch} from '../services/hook';
 import {useSelector} from '../services/hook';
 import {updateUserProfile} from "../services/actions/user";
 import {FeedContainer} from "../components/feed-container/feed-container";
+import {ProtectedRoute} from '../components/protected-route/protected-route';
 
 export function ProfilePage() {
     const auth: any = useAuth();
