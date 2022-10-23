@@ -21,6 +21,7 @@ export function ProfilePage() {
         (e) => {
             e.preventDefault();
             auth.signOut(localStorage.getItem("refreshToken"));
+            history.replace({ pathname: '/login' });
         },
         [auth]
     );
