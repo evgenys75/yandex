@@ -38,6 +38,23 @@ export function userForgotSuccess() {
     }
 }
 
+export function updateToken() {
+    return fetch(`${apiEndPoint}auth/token`)
+
+        .then(checkResponse)
+        .then(data => {
+            if (data && data.success) {
+                const accessToken = data.accessToken.split('Bearer ')[1];
+                const refreshToken = data.refreshToken;
+                setCookie('token', accessToken, 0);
+                localStorage.setItem('refreshToken', refreshToken);
+            }
+        })
+        .catch(e => {
+            console.log(e);
+        })
+};
+
 export function getUserInfo() {
     return (dispatch: AppDispatch) => {
         fetch(`${apiEndPoint}auth/user`, {
@@ -121,7 +138,7 @@ export function userSignIn(userEmail: string, userPassword: string) {
                 authToken = data.accessToken.split('Bearer ')[1];
             }
             if (authToken) {
-                setCookie('token', authToken, 0);
+                if (!getCookie('token')) setCookie('token', authToken, 0);
                 localStorage.setItem('refreshToken', `${data.refreshToken}`);
             }
             if (data.success) {
