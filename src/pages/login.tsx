@@ -9,7 +9,7 @@ import loginStyle from "./login.module.css";
 import {useAuth} from '../services/auth';
 
 export function LoginPage() {
-    let auth:any = useAuth();
+    let auth: any = useAuth();
     type TLocation = {
         from: string;
         state?: object;
@@ -31,7 +31,7 @@ export function LoginPage() {
         [auth, value, valuePassword]
     );
 
-    if (auth.user.userAuth) {
+    if (auth?.user?.userAuth) {
         return <Redirect to={location?.state?.from || "/"}/>;
     }
 
@@ -50,7 +50,7 @@ export function LoginPage() {
                     />
                 </div>
                 <div className="pb-20 text">
-                    <Button>Войти</Button>
+                    <Button htmlType={"submit"}>Войти</Button>
                 </div>
                 <div className={`pb-4 ${loginStyle.content}`}>
                     <p

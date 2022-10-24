@@ -1,18 +1,20 @@
 import React from 'react';
 import styles from './ingredient-details.module.css';
-import {useSelector} from 'react-redux';
+import {useSelector} from '../../services/hook'
 import {useParams} from "react-router-dom";
 import {TIngredient} from '../../utils/types';
+
 export default function IngredientDetails() {
 
-    const id:string = useParams();
-    const data = useSelector((store:any) => {
+    const id: string = useParams();
+    const getID = JSON.parse(JSON.stringify(id));
+    const data = useSelector(store => {
         return store.ingredients.ingredientsFullList;
     });
-    let {ingredientDetails} = useSelector((store:any) => store.ingredients);
-
+    let {ingredientDetails} = useSelector(store => store.ingredients);
+    console.log(id);
     if (id) {
-        ingredientDetails = data.find((ingr:TIngredient) => ingr._id === id);
+        ingredientDetails = data.find((ingr: TIngredient) => ingr._id === getID.id);
     }
     return (
         <>

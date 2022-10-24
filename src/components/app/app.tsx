@@ -3,8 +3,9 @@ import AppHeader from '../app-header/app-header';
 import appStyles from './app.module.css';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
+import FeedDetails from '../feed-details/feed-details'
 import {useEffect} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch} from '../../services/hook';
 import {getIngredientsFullList} from '../../services/actions/ingredients';
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
@@ -15,6 +16,7 @@ import {
     ProfilePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage
 } from '../../pages';
 import {ProtectedRoute} from '../protected-route/protected-route';
+import {FeedContainer} from '../feed-container/feed-container';
 
 export default function App() {
     type TLocation = {
@@ -35,14 +37,16 @@ export default function App() {
 
     useEffect(() => {
         dispatch(getIngredientsFullList());
-    }, [dispatch]);
+    }, []);
 
     function closeModal() {
         history.goBack();
     }
 
+
     return (<>
         <AppHeader/>
+
         <Switch location={background || location}>
             <Route path="/login" exact={true}>
                 <LoginPage/>
@@ -70,7 +74,34 @@ export default function App() {
             <Route path="/ingredients/:id" exact={true}>
                 <IngredientDetails/>
             </Route>
+            <Route path='/ingredients/:id'>
+            </Route>
+            <Route path='/feed'>
+                <FeedContainer/>
+            </Route>
         </Switch>
+        {background && (
+            <Route path='/feed/:id'>
+                <Modal
+                    onClose={() => {
+                        closeModal();
+                    }}
+                >
+                    <FeedDetails/>
+                </Modal>
+            </Route>
+        )}
+        {background && (
+            <ProtectedRoute path='/profile/orders/:id'>
+                <Modal
+                    onClose={() => {
+                        closeModal();
+                    }}
+                >
+                    <FeedDetails/>
+                </Modal>
+            </ProtectedRoute>
+        )}
         {background && (
             <Route path="/ingredients/:id" exact={true}>
                 <Modal

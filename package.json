@@ -16,7 +16,7 @@
     "react-dnd": "^15.0.0",
     "react-dnd-html5-backend": "^15.0.0",
     "react-dom": "^16.8.6",
-    "react-redux": "^8.0.2",
+    "react-redux": "^7.2.8",
     "react-router-dom": "^5.3.3",
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
@@ -50,6 +50,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.3.3"
+    "@types/react-router-dom": "^5.3.3",
+    "@types/uuid": "^8.3.4"
   }
 }

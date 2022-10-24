@@ -7,10 +7,10 @@ import pageStyle from "./pages.module.css";
 import {Link, Redirect} from "react-router-dom";
 import {useAuth} from '../services/auth';
 import {useState} from 'react';
-import {useSelector} from "react-redux";
+import {useSelector} from '../services/hook'
 
 export function ForgotPasswordPage() {
-    const state = useSelector((store:any) => store);
+    const state = useSelector(store => store);
     let auth:any = useAuth();
     const [email, setEmail] = useState('');
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +39,7 @@ export function ForgotPasswordPage() {
                         <EmailInput onChange={onChange} value={email} name={'email'}/>
                     </div>
                     <div className="pb-20">
-                        <Button>Восстановить</Button>
+                        <Button htmlType={"button"}>Восстановить</Button>
                     </div>
                     <p className="text text_type_main-small text_color_inactive">
                         Вспомнили пароль?

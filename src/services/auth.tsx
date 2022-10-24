@@ -1,28 +1,29 @@
+import React, {FC} from 'react';
 import {useContext, createContext} from 'react';
-import React from 'react';
 import {apiEndPoint} from '../utils/data';
 import {checkResponse} from '../utils/utils'
 import {userSignIn, userSignOut, getUserInfo, userForgotSuccess} from "./actions/user";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector, useDispatch} from '../services/hook'
 
-const AuthContext = createContext(undefined);
+let AuthContext: any = '';
 
-export function ProvideAuth({children}) {
+export const ProvideAuth: FC = ({children}) => {
     const auth = useProvideAuth();
+    AuthContext = createContext(auth);
     return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 }
 
-export function useAuth() {
+export function useAuth(): any {
     return useContext(AuthContext);
 }
 
 export function useProvideAuth() {
 
     const dispatch = useDispatch();
-    const user = useSelector((store) => {
+    const user = useSelector(store => {
         return store.user;
     });
-    const forgot = async email => {
+    const forgot = async (email: string) => {
         const request = `{"email": "${email}"}`;
         fetch(`${apiEndPoint}password-reset`, {
             headers: {
@@ -37,7 +38,7 @@ export function useProvideAuth() {
             console.log(error);
         });
     };
-    const reset = async (pass:string, token:string) => {
+    const reset = async (pass: string, token: string) => {
         const request = `{"password": "${pass}","token": "${token}"}`;
         fetch(`${apiEndPoint}password-reset/reset`, {
             headers: {
@@ -52,11 +53,11 @@ export function useProvideAuth() {
             console.log(error);
         });
     };
-    const signOut = (token) => dispatch(userSignOut(token));
-    const signIn = (email, password) =>
+    const signOut = (token: string) => dispatch(userSignOut(token));
+    const signIn = (email: string, password: string) =>
         dispatch(userSignIn(email, password));
     const getUser = () => {
-        dispatch(getUserInfo(user));
+        getUserInfo();
     }
 
     return {

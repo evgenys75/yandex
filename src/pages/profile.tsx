@@ -9,15 +9,19 @@ import pagesStyle from "./pages.module.css";
 import profileStyle from "./profile.module.css";
 import {Switch, Route, useHistory} from "react-router-dom";
 import {useAuth} from '../services/auth';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from '../services/hook';
+import {useSelector} from '../services/hook';
 import {updateUserProfile} from "../services/actions/user";
+import {FeedContainer} from "../components/feed-container/feed-container";
+import {ProtectedRoute} from '../components/protected-route/protected-route';
 
 export function ProfilePage() {
-    const auth:any = useAuth();
+    const auth: any = useAuth();
     const logout = useCallback(
         (e) => {
             e.preventDefault();
             auth.signOut(localStorage.getItem("refreshToken"));
+            history.replace({ pathname: '/login' });
         },
         [auth]
     );
@@ -61,15 +65,15 @@ export function ProfilePage() {
                             </li>
                         </ul>
                     </nav>
-
                     <Switch>
+                        <Route path='/profile/orders'>
+                            <FeedContainer/>
+                        </Route>
                         <Route path="/profile" exact={true}>
                             <ProfileSection/>
                         </Route>
-                        <Route path="/profile/orders" exact={true}>
-
-                        </Route>
                     </Switch>
+
                 </div>
             </div>
         </section>
@@ -78,25 +82,24 @@ export function ProfilePage() {
 
 function ProfileSection() {
     const dispatch = useDispatch();
-    const state = useSelector((store:any) => store);
+    const state = useSelector(store => store);
     const userProfile = state.user.userAuthProfile;
     React.useEffect(() => {
         setName(userProfile.name);
         setEmail(userProfile.email);
-    }, [userProfile]);
+    }, []);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     function updateProfile(e: { preventDefault: () => void; }) {
         e.preventDefault();
-        dispatch(updateUserProfile(email, password, name) as any);
+        dispatch(updateUserProfile(email, password, name));
     }
 
     function resetProfile() {
         setName(state.user.userAuthProfile.name);
         setEmail(state.user.userAuthProfile.email);
-        setPassword(state.user.userAuthProfile.password);
     }
 
     return (
@@ -128,8 +131,8 @@ function ProfileSection() {
                     />
                 </div>
                 <div className={`${profileStyle.buttons} pt-10`}>
-                    <Button>Сохранить</Button>
-                    <Button onClick={resetProfile}>Отмена</Button>
+                    <Button htmlType={"button"}>Сохранить</Button>
+                    <Button htmlType={"button"} onClick={resetProfile}>Отмена</Button>
                 </div>
             </div>
         </form>

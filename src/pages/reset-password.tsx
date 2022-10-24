@@ -6,11 +6,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import pagesStyle from "./pages.module.css";
 import {Link, Redirect} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useSelector} from '../services/hook'
 import {useAuth} from '../services/auth';
 
 export function ResetPasswordPage() {
-    const state = useSelector((store:any) => store);
+    const state = useSelector(store => store);
     let auth:any = useAuth();
     const [pass, setValuePass] = React.useState("");
     const [token, setValueToken] = React.useState("");
@@ -51,7 +51,7 @@ export function ResetPasswordPage() {
                         />
                     </div>
                     <div className="pb-20 pt-6">
-                        <Button>Сохранить</Button>
+                        <Button htmlType={"button"}>Сохранить</Button>
                     </div>
                     <p className="text text_type_main-small text_color_inactive">
                         Вспомнили пароль?

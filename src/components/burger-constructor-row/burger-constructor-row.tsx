@@ -4,7 +4,7 @@ import {
     ConstructorElement,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from '../burger-constructor/burger-constructor.module.css';
-import {useDispatch} from 'react-redux';
+import {useDispatch} from '../../services/hook'
 import {useDrop, useDrag} from 'react-dnd';
 import {
     CHANGE_POSITION,

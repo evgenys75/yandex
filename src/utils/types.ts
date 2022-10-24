@@ -12,4 +12,17 @@ export type TIngredient = {
     image_large: string;
     __v: number;
 };
+export type TUser = {
+    name: string;
+    email: string;
+};
 export type TIngredientWithUniqueId = TIngredient & { uuid: string };
+export type TOrder = {
+    ingredients: Array<string>;
+    _id: string;
+    name: string;
+    status: string;
+    number: number;
+    createdAt: string;
+    updatedAt: string;
+};

@@ -1,7 +1,8 @@
 import {
     USER_AUTHORIZATION,
     USER_UPDATE,
-    USER_FORGOT_SUCCESS
+    USER_FORGOT_SUCCESS,
+    TUserActions
 } from '../actions/user';
 
 const initialState = {
@@ -12,8 +13,8 @@ const initialState = {
         name: ''
     }
 };
-
-export const userReducer = (state = initialState, action) => {
+export type TUserState = typeof initialState;
+export const userReducer = (state = initialState, action: TUserActions): TUserState => {
     switch (action.type) {
         case USER_FORGOT_SUCCESS: {
             return {
