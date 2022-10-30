@@ -2,6 +2,14 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Приложение можно протестировать по следющей ссылке:
+### на [Github Pages](https://evgenys75.github.io/yandex/index.html)
+## Данные для авторизации:
+### E-mail:
+    evgenys75@yandex.ru
+### Password:
+    gtnhfcfy
+
 ## Available Scripts
 
 In the project directory, you can run:
