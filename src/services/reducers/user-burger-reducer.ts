@@ -5,17 +5,18 @@ import {
     TUserBurgerActions
 } from '../actions/user-burger';
 import {TIngredientWithUniqueId} from '../../utils/types'
+import {AnyAction} from "redux";
 
 export type TUserBurgerState = {
     totalPrice: number,
     ingredients: { bun: any, filling: Array<TIngredientWithUniqueId> },
 }
-const initialState: TUserBurgerState = {
+export const initialState: TUserBurgerState = {
     totalPrice: 0,
     ingredients: {bun: '', filling: []},
 };
 
-export const userBurgerReducer = (state = initialState, action: TUserBurgerActions): TUserBurgerState => {
+export const userBurgerReducer = (state = initialState, action: AnyAction): TUserBurgerState => {
     switch (action.type) {
         case CHANGE_POSITION: {
             const from = state.ingredients.filling.findIndex(

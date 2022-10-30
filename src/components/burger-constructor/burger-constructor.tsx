@@ -66,7 +66,7 @@ export default function BurgerConstructor() {
     };
 
     return (
-        <div ref={dropTarget}>
+        <div ref={dropTarget} data-test={"selected"}>
             <ul className={`pt-25 pl-10 ${styles.constructor}`}>
                 {bunIngredient != null &&
                     <li>

@@ -5,7 +5,7 @@ import {
     TUserActions
 } from '../actions/user';
 
-const initialState = {
+export const initialState = {
     userAuth: false,
     userForgotPasswordSuccess: false,
     userAuthProfile: {

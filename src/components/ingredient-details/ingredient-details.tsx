@@ -21,7 +21,7 @@ export default function IngredientDetails() {
             {ingredientDetails != null &&
                 <div className={styles.ingredient}>
                     <span
-                        className={`pt-10 pl-10 pr-10 text_type_main-large ${styles.infoTitle}`}>Детали ингедиента</span>
+                        className={`pt-10 pl-10 pr-10 text_type_main-large ${styles.infoTitle}`}>Детали ингредиента</span>
                     <span className={'pt-15 pb-15'}><img alt={ingredientDetails.name}
                                                          src={ingredientDetails.image_large}/></span>
                     <span

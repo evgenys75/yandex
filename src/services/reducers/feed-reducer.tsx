@@ -11,7 +11,7 @@ export type TFeedState = {
     doneAllTime: number
 };
 
-const initialState:TFeedState = {
+export const initialState:TFeedState = {
     ordersFullList: [],
     doneToday: 0,
     doneAllTime: 0
