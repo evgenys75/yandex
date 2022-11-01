@@ -35,9 +35,6 @@ export const userBurgerReducer = (state = initialState, action: AnyAction): TUse
                 },
             };
         }
-        // case SET_TOTAL_PRICE: {
-        //     return state;
-        // }
         case ADD_INGREDIENT_TO_BURGER: {
             const item = action.payload;
             const itemType = action.payload.type;

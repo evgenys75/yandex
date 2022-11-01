@@ -8,14 +8,19 @@ describe('Проверка оформления заказа', () => {
     });
 
     it('Добавление ингредиентов в конструктор', () => {
+        cy.wait(5000);
         cy.get('[data-test="60d3b41abdacab0026a733c6"]').trigger('dragstart');
         cy.get('[data-test="selected"]').trigger('drop');
+        cy.wait(5000);
         cy.get('[data-test="60d3b41abdacab0026a733cc"]').trigger('dragstart');
         cy.get('[data-test="selected"]').trigger('drop');
+        cy.wait(5000);
         cy.get('[data-test="60d3b41abdacab0026a733d4"]').trigger('dragstart');
         cy.get('[data-test="selected"]').trigger('drop');
+        cy.wait(5000);
         cy.get('[data-test="60d3b41abdacab0026a733cb"]').trigger('dragstart');
         cy.get('[data-test="selected"]').trigger('drop');
+        cy.wait(5000);
         cy.get('[data-test="60d3b41abdacab0026a733d3"]').trigger('dragstart');
         cy.get('[data-test="selected"]').trigger('drop');
     });
