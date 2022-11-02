@@ -12,15 +12,6 @@ import {Link, useLocation} from "react-router-dom";
 export default function BurgerIngredients() {
     const dispatch = useDispatch();
     const location = useLocation();
-
-    /*
-    const ingredientsFullListObjects = useSelector(store => store.ingredients);
-    const ingredientsFullListArray = Object.keys(ingredientsFullListObjects).map(function (index) {
-        let ingredientObject = ingredientsFullListObjects[index];
-        return ingredientObject;
-    });
-    const ingredientsFullList = ingredientsFullListArray[0];
-    */
     const ingredientsFullList = useSelector(store => store.ingredients.ingredientsFullList);
     const {ingredients: userBurgerIngredients} = useSelector(
         store => store.userBurger);
@@ -85,6 +76,7 @@ export default function BurgerIngredients() {
                     {ingredientsFullList.filter(el => el.type === 'bun').map((element: any) => (
                         <li key={element._id}
                             className={`pt-6 pb-10`}
+                            data-test={element._id}
                         >
                             <Link
                                 to={{
@@ -109,7 +101,8 @@ export default function BurgerIngredients() {
                     </li>
                     {ingredientsFullList.filter(el => el.type === 'sauce').map((element: any) => (
                         <li key={element._id}
-                            className={`pt-6 pb-10`}>
+                            className={`pt-6 pb-10`}
+                            data-test={element._id}>
                             <Link
                                 to={{
                                     pathname: `/ingredients/${element._id}`,
@@ -132,7 +125,8 @@ export default function BurgerIngredients() {
                     </li>
                     {ingredientsFullList.filter(el => el.type === 'main').map((element: any) => (
                         <li key={element._id}
-                            className={`pt-6 pb-10`}>
+                            className={`pt-6 pb-10`}
+                            data-test={element._id}>
                             <Link
                                 to={{
                                     pathname: `/ingredients/${element._id}`,

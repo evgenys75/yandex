@@ -3,6 +3,7 @@ import {
     EmailInput,
     PasswordInput,
     Button,
+    Input
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import {Redirect, Link, useLocation} from 'react-router-dom';
 import loginStyle from "./login.module.css";
@@ -40,7 +41,13 @@ export function LoginPage() {
             <form className={loginStyle.form} onSubmit={loginHandler}>
                 <h1 className="pb-6 text text_type_main-medium">Вход</h1>
                 <div className={"pb-6"}>
-                    <EmailInput name="email" value={value} onChange={onChange}/>
+                    <Input
+                        type={'email'}
+                        name={'email'}
+                        placeholder={'E-mail'}
+                        value={value}
+                        onChange={onChange}
+                    />
                 </div>
                 <div className={"pb-6"}>
                     <PasswordInput

@@ -23,7 +23,7 @@ export const Modal: FC<IModal> = ({onClose, children}) => {
 
     return modalRoot ? ReactDOM.createPortal((
         <>
-            <div className={styles.modal}>
+            <div className={styles.modal} id="modal">
                 <span className={`${styles.modalContent}`}>{children}</span>
                 <button className={styles.close} onClick={onClose}>
                     <CloseIcon type="primary"/>
